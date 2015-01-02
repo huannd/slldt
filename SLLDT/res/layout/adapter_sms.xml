@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffe0e0e0"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/tv_sms_stt"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="2.0dip"
+        android:layout_marginLeft="2.0dip"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:id="@+id/sms_adapter_timeLy"
+        android:layout_width="0.0dip"
+        android:layout_height="70.0dip"
+        android:layout_marginBottom="2.0dip"
+        android:layout_marginLeft="2.0dip"
+        android:layout_weight="0.9"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_sms_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="17.0sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sms_adapter_decsLy"
+        android:layout_width="0.0dip"
+        android:layout_height="70.0dip"
+        android:layout_marginBottom="2.0dip"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="2.0dip"
+        android:layout_weight="1.6"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_sms_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:maxLines="3"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="17.0sp" />
+    </LinearLayout>
+
+</LinearLayout>

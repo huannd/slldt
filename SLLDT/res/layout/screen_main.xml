@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ff8fbb3c"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffe0e0e0" >
+
+        <TextView
+            android:id="@+id/tv_current_id"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5.0dip"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:typeface="serif" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffe0e0e0" >
+
+        <LinearLayout
+            android:id="@+id/main_errorConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:layout_width="@dimen/main_refresh_img"
+                android:layout_height="@dimen/main_refresh_img"
+                android:layout_gravity="center"
+                android:contentDescription="@string/refresh"
+                android:src="@drawable/f5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/main_refresh_marginBot"
+                android:gravity="center"
+                android:text="@string/refresh"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/main_menu_item"
+                android:textStyle="bold"
+                android:typeface="serif" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_progressLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="invisible" >
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/main_MenuItems"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="4.0dip"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0"
+                android:baselineAligned="false" >
+
+                <LinearLayout
+                    android:id="@+id/btn_inbox"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:background="#ffffffff"
+                    android:layout_weight="1.0"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.0dip"
+                        android:layout_weight="1.0"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/inbox" />
+
+                    <TextView
+                        android:id="@+id/main_text_inbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/lbl_sms_inbox"
+                        android:textColor="#ff0071bc"
+                        android:textSize="@dimen/main_menu_item"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_searching"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="2.0dip"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_weight="1.0"
+                    android:background="#ffffffff"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.0dip"
+                        android:layout_weight="1.0"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/tracuu" />
+
+                    <TextView
+                        android:id="@+id/main_text_tracuu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/lbl_sms_searching"
+                        android:textColor="#ff0071bc"
+                        android:textSize="@dimen/main_menu_item"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0"
+                android:baselineAligned="false" >
+
+                <LinearLayout
+                    android:id="@+id/btn_account"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:layout_marginTop="2.0dip"
+                    android:layout_weight="1.0"
+                    android:background="#ffffffff"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.0dip"
+                        android:layout_weight="1.0"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/taikhoan" />
+
+                    <TextView
+                        android:id="@+id/main_text_taikhoan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/Taikhoan"
+                        android:textColor="#ff0071bc"
+                        android:textSize="@dimen/main_menu_item"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_about"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="2.0dip"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginTop="2.0dip"
+                    android:layout_weight="1.0"
+                    android:background="#ffffffff"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.0dip"
+                        android:layout_weight="1.0"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/about" />
+
+                    <TextView
+                        android:id="@+id/main_text_about"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/About"
+                        android:textColor="#ff0071bc"
+                        android:textSize="@dimen/main_menu_item"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0"
+                android:baselineAligned="false" >
+
+                <LinearLayout
+                    android:id="@+id/btn_settings"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="2.0dip"
+                    android:layout_marginTop="2.0dip"
+                    android:layout_weight="1.0"
+                    android:background="#ffffffff"
+                    android:orientation="vertical"
+                    android:visibility="invisible" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.0dip"
+                        android:layout_weight="1.0"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/settings" />
+
+                    <TextView
+                        android:id="@+id/main_text_settings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/Settings"
+                        android:textColor="#ff0071bc"
+                        android:textSize="@dimen/main_menu_item"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_outbox"
+                    android:layout_width="0.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginTop="2.0dip"
+                    android:layout_weight="1.0"
+                    android:background="#ffffffff"
+                    android:orientation="vertical"
+                    android:visibility="invisible" >
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.0dip"
+                        android:layout_weight="1.0"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/sms" />
+
+                    <TextView
+                        android:id="@+id/main_text_sms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/SMS"
+                        android:textColor="#ff0071bc"
+                        android:textSize="@dimen/main_menu_item"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

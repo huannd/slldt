@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="lbl_slldt_upper">SỔ LIÊN LẠC\nĐIỆN TỬ</string>
+    
+    <string name="app_name">Sổ liên lạc điển tử</string>
+    <string name="app_namebr">"Sổ liên lạc\nđiển tử"</string>
+    <string name="app_nameH">SỔ LIÊN LẠC ĐIỆN TỬ</string>
+    <string name="internet_error">"Kết nối mạng xảy ra lỗi! Xin vui lòng kiểm tra và thử lại"</string>
+    <string name="refresh">"Kết nối mạng xảy ra lỗi! Nhấn vào đây để thử lại."</string>
+    <string name="copyright">"© Copyright\nCÔNG TY CP TƯ VẤN GIẢI PHÁP TRUYỀN THÔNG SỐ VIỆT NAM (DTCS)"</string>
+    <string name="about">"Version : 1.0.0\n\nSản phẩm và dịch vụ của Cty Cp tư vấn và Giải pháp Truyền thông số Việt Nam\n\nHotline : 01234 48 9999"</string>
+    <string name="lbl_sms_inbox">HÒM TIN</string>
+    <string name="lbl_sms_searching">TRA CỨU TIN</string>
+    <string name="Taikhoan">TÀI KHOẢN</string>
+    <string name="SMS">NHẬN TIN QUA SMS</string>
+    <string name="Settings">CÀI ĐẶT</string>
+    <string name="About">GIỚI THIỆU</string>
+    <string name="sms_time">Ngày</string>
+    <string name="sms_content">Nội dung</string>
+    <string name="lbl_select_slldt">Chọn sổ liên lạc</string>
+    <string name="err_wrong_phone_or_pass">Số điện thoại hoặc mật khẩu sai.\nVui lòng nhập lại</string>
+    <string name="err_network_connection">Kết nối mạng sảy ra lỗi.\nVui lòng thử lại sau</string>
+    <string name="err_not_exist_account">Tài khoản không tồn tại.\nVui lòng kiểm tra lại.</string>
+</resources>
