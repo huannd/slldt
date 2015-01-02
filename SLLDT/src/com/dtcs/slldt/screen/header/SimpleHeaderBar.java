@@ -1,0 +1,37 @@
+package com.dtcs.slldt.screen.header;
+
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.edu.ebookcontact.R;
+
+public class SimpleHeaderBar {
+
+	private Fragment mFrag;
+	public SimpleHeaderBar(Fragment frag){
+		mFrag = frag;
+	}
+	
+	public View onCreateHeaderView(LayoutInflater inflater,
+			ViewGroup container) {
+		View root = inflater.inflate(R.layout.header_bar_simple, container);
+		root.findViewById(R.id.btnBack).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (mFrag instanceof IHeaderBar) {
+					((IHeaderBar)mFrag).onBackPress();
+				}
+			}
+		});
+		if (mFrag instanceof IHeaderBar) {
+			TextView tvTitle = (TextView)root.findViewById(R.id.title);
+			tvTitle.setText(((IHeaderBar)mFrag).getTitle());
+		}
+		return null;
+	}
+}
