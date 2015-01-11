@@ -4,6 +4,10 @@ public class ResultModel {
 
 	public String strResult;
 	
+	public void setResultSuccess(){
+		strResult = "0|success";
+	}
+	
 	public int getErrorCode(){
 		Integer ret = -1;
 		if (strResult!=null) {
