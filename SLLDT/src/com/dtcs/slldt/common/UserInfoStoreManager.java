@@ -1,6 +1,8 @@
 package com.dtcs.slldt.common;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
@@ -13,6 +15,7 @@ public class UserInfoStoreManager {
 	private ArrayList<SMSModel> listSMS;
 	private StudentModel currentStudent;
 	private String phoneNumber;
+	private SimpleDateFormat dateFormat;
 	  
 	public static UserInfoStoreManager getInstance(){
 		if (INSTANCE == null) {
@@ -53,4 +56,10 @@ public class UserInfoStoreManager {
 		this.listSMS = listSMS;
 	}
 	
+	public SimpleDateFormat getDateFormat(){
+		if (dateFormat == null) {
+			dateFormat = new SimpleDateFormat(ICommonDefine.DATE_FORMAT, Locale.US);
+		}
+		return dateFormat;
+	}
 }
