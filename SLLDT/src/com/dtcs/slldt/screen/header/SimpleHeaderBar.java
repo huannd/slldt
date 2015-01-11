@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dtcs.slldt.screen.main.MainScreen;
 import com.edu.ebookcontact.R;
 
 public class SimpleHeaderBar {
@@ -28,6 +29,18 @@ public class SimpleHeaderBar {
 				}
 			}
 		});
+		root.findViewById(R.id.main_btn_switch).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (mFrag instanceof IHeaderBar) {
+					((IHeaderBar)mFrag).sync();
+				}
+			}
+		});
+		if (!(mFrag instanceof MainScreen)) {
+			root.findViewById(R.id.main_btn_switch).setVisibility(View.GONE);
+		}
 		if (mFrag instanceof IHeaderBar) {
 			TextView tvTitle = (TextView)root.findViewById(R.id.title);
 			tvTitle.setText(((IHeaderBar)mFrag).getTitle());

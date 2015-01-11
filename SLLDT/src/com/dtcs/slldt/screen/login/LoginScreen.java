@@ -3,6 +3,7 @@ package com.dtcs.slldt.screen.login;
 import java.util.ArrayList;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,26 +40,29 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 	private TextView tvRegister;
 	private TextView tvForgotPassword;
 	private TextView tvError;
-	private ProgressBar prgLogin;
+//	private ProgressBar prgLogin;
+	private ProgressDialog prgLogin;
 	private ArrayList<StudentModel> mListStudent;
 
 	@Override
 	protected View onCreateContentView(LayoutInflater inflater, ViewGroup container) {
-		View v = LayoutInflater.from(getActivity()).inflate(R.layout.screen_login, container, false);
+		View v = LayoutInflater.from(getActivity()).inflate(R.layout.screen_lg, container, false);
 		btnLogin = v.findViewById(R.id.btn_login);
 		edtPhone = (EditText) v.findViewById(R.id.edt_phone);
 		edtPassword = (EditText) v.findViewById(R.id.edt_pass);
-		tvRegister = (TextView) v.findViewById(R.id.tvRegister);
-		tvForgotPassword = (TextView) v.findViewById(R.id.tvForgotPassword);
-		tvError = (TextView) v.findViewById(R.id.tvError);
-		prgLogin = (ProgressBar) v.findViewById(R.id.prg_login);
+		tvRegister = (TextView) v.findViewById(R.id.tv_register);
+		tvForgotPassword = (TextView) v.findViewById(R.id.tv_forgot_password);
+		tvError = (TextView) v.findViewById(R.id.tv_error);
+//		prgLogin = (ProgressBar) v.findViewById(R.id.prg_login);
+		prgLogin = new ProgressDialog(getActivity());
+		prgLogin.setMessage("đăng nhập...");
 		init();
 		return v;
 	}
 
 	private void init() {
-		tvRegister.setText(Html.fromHtml("<u>Ä�Äƒng kÃ½</u>"));
-		tvForgotPassword.setText(Html.fromHtml("<u>QuÃªn máº­t kháº©u</u>"));
+		tvRegister.setText(Html.fromHtml("<u>Đăng Ký</u>"));
+		tvForgotPassword.setText(Html.fromHtml("<u>Quên Mật Khẩu</u>"));
 		btnLogin.setOnClickListener(this);
 		tvRegister.setOnClickListener(this);
 		tvForgotPassword.setOnClickListener(this);
@@ -103,15 +107,21 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 	}
 
 	private void setLoginState(boolean isLogin) {
+//		if (isLogin) {
+//			setEditable(false);
+//			tvError.setText("");
+//			prgLogin.setVisibility(View.VISIBLE);
+//			btnLogin.setVisibility(View.INVISIBLE);
+//		} else {
+//			setEditable(true);
+//			prgLogin.setVisibility(View.INVISIBLE);
+//			btnLogin.setVisibility(View.VISIBLE);
+//		}
 		if (isLogin) {
-			setEditable(false);
 			tvError.setText("");
-			prgLogin.setVisibility(View.VISIBLE);
-			btnLogin.setVisibility(View.INVISIBLE);
+			prgLogin.show();
 		} else {
-			setEditable(true);
-			prgLogin.setVisibility(View.INVISIBLE);
-			btnLogin.setVisibility(View.VISIBLE);
+			prgLogin.dismiss();
 		}
 	}
 
@@ -160,11 +170,13 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 			public void onTaskComplete(ArrayList<StudentModel> ob, ResultModel result) {
 				if (ob != null && result != null) {
 					mListStudent = ob;
-					showListStudentDialog();
+//					showListStudentDialog();
+					UserInfoStoreManager.getInstance().setListStudent(mListStudent);
+					switchContent(new MainScreen(), true);
 				} else {
 					tvError.setText(getResources().getString(R.string.err_network_connection));
-					setLoginState(false);
 				}
+				setLoginState(false);
 			}
 		});
 	}
@@ -187,7 +199,7 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 				idPickerDialog.dismiss();
 				UserInfoStoreManager.getInstance().setListStudent(mListStudent);
 				UserInfoStoreManager.getInstance().setCurrentStudent(mListStudent.get(position));
-				switchContent(new MainScreen(), false);
+				switchContent(new MainScreen(), true);
 			}
 		});
 
@@ -222,10 +234,10 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 		case R.id.btn_login:
 			startLogin();
 			break;
-		case R.id.tvRegister:
+		case R.id.tv_register:
 			register();
 			break;
-		case R.id.tvForgotPassword:
+		case R.id.tv_forgot_password:
 			forgotPassword();
 			break;
 		default:

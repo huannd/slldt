@@ -1,5 +1,6 @@
 package com.dtcs.slldt.screen.header;
 
+
 public interface IHeaderBar {
 	
 	public enum HeaderType{
@@ -9,4 +10,5 @@ public interface IHeaderBar {
 	
 	public void onBackPress();
 	public String getTitle();
+	public void sync();
 }
