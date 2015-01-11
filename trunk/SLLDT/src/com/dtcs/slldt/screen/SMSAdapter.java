@@ -36,7 +36,7 @@ public class SMSAdapter extends BaseListAdapter<SMSModel>{
 			txtStt.setText(""+(position+1));
 			Date smsTime = model.getTime();
 			if (smsTime!=null) {
-				txtTime.setText(DAY_NUMB[smsTime.getDay()] + "\n" + DateFormat.format("dd-MM-yyyy", smsTime));
+				txtTime.setText(DateFormat.format("dd-MM-yyyy", smsTime));
 			}else {
 				txtTime.setText(model.Ngay_Duyet);
 			}
