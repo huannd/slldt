@@ -7,58 +7,40 @@
 
     <TextView
         android:id="@+id/tv_sms_stt"
-        android:layout_width="0.0dip"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="2.0dip"
-        android:layout_marginLeft="2.0dip"
-        android:layout_weight="0.3"
+        android:layout_width="@dimen/sms_number_width"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:textColor="@android:color/black" />
 
     <LinearLayout
-        android:id="@+id/sms_adapter_timeLy"
         android:layout_width="0.0dip"
-        android:layout_height="70.0dip"
-        android:layout_marginBottom="2.0dip"
-        android:layout_marginLeft="2.0dip"
-        android:layout_weight="0.9"
-        android:orientation="horizontal" >
+        android:layout_height="@dimen/sms_item_height"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/layout_margin_small"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_sms_time"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="5.0dip"
-            android:layout_marginRight="5.0dip"
-            android:gravity="center"
-            android:maxLines="2"
+            android:layout_marginLeft="@dimen/layout_margin_small"
+            android:layout_marginRight="@dimen/layout_margin_small"
+            android:gravity="right|center_vertical"
             android:text="@string/app_name"
-            android:textColor="@android:color/black"
-            android:textSize="17.0sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/sms_adapter_decsLy"
-        android:layout_width="0.0dip"
-        android:layout_height="70.0dip"
-        android:layout_marginBottom="2.0dip"
-        android:layout_marginLeft="2.0dip"
-        android:layout_marginRight="2.0dip"
-        android:layout_weight="1.6"
-        android:orientation="horizontal" >
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_size_normal" />
 
         <TextView
             android:id="@+id/tv_sms_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margin_small"
             android:layout_gravity="center"
-            android:layout_marginLeft="5.0dip"
-            android:layout_marginRight="5.0dip"
-            android:maxLines="3"
+            android:maxLines="2"
             android:text="@string/app_name"
             android:textColor="@android:color/black"
-            android:textSize="17.0sp" />
+            android:textSize="@dimen/text_size_normal" />
     </LinearLayout>
 
 </LinearLayout>

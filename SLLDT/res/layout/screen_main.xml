@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#ff8fbb3c"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg002"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/tv_current_id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#88FFFFFF"
+        android:padding="@dimen/layout_margin_small"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:typeface="serif" />
+
+    <GridView
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+        android:gravity="center"
+        android:horizontalSpacing="4.0dip"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:smoothScrollbar="true"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="4.0dip"
+        android:visibility="visible" />
+
+    <!--
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -286,5 +319,6 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+    -->
 
 </LinearLayout>
