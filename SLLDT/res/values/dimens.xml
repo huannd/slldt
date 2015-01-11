@@ -30,6 +30,17 @@
     <dimen name="header_txt_size">26sp</dimen>
     <!-- HEADER -->
     
+    <!-- LOGIN -->
+    <dimen name="login_banner_height">100dp</dimen>
+    <dimen name="login_input_width">260dp</dimen>
+    <dimen name="login_input_height">45dp</dimen>
+    <!-- LOGIN -->
+    
+    <!-- SMS -->
+    <dimen name="sms_number_width">50dp</dimen>
+    <dimen name="sms_compose_width">50dp</dimen>
+    <dimen name="sms_item_height">80dp</dimen>
+    <!-- SMS -->
     <dimen name="login_height">150.0dip</dimen>
     <dimen name="main_menu_item">27.0dip</dimen>
     <dimen name="main_menu_title">27.0dip</dimen>
@@ -37,5 +48,6 @@
     <dimen name="main_refresh_img">200.0dip</dimen>
     <dimen name="main_refresh_marginBot">100.0dip</dimen>
     <dimen name="dialog_act">250.0dip</dimen>
+    <dimen name="main_dashboard_height">150dp</dimen>
     
 </resources>
