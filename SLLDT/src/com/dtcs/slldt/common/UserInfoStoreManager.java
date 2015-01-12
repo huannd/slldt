@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
+import com.dtcs.slldt.model.TotalSMSModel;
 
 public class UserInfoStoreManager {
 
@@ -16,6 +17,7 @@ public class UserInfoStoreManager {
 	private StudentModel currentStudent;
 	private String phoneNumber;
 	private SimpleDateFormat dateFormat;
+	private TotalSMSModel totalSMSModel;
 	  
 	public static UserInfoStoreManager getInstance(){
 		if (INSTANCE == null) {
@@ -61,5 +63,13 @@ public class UserInfoStoreManager {
 			dateFormat = new SimpleDateFormat(ICommonDefine.DATE_FORMAT, Locale.US);
 		}
 		return dateFormat;
+	}
+
+	public TotalSMSModel getTotalSMSModel() {
+		return totalSMSModel;
+	}
+	
+	public void setTotalSMSModel(TotalSMSModel totalSMSModel) {
+		this.totalSMSModel = totalSMSModel;
 	}
 }
