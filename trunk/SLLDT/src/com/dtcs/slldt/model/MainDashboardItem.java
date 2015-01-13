@@ -3,11 +3,13 @@ package com.dtcs.slldt.model;
 import java.util.ArrayList;
 
 import com.dtcs.slldt.EBookContactApp;
+import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.edu.ebookcontact.R;
 
 public class MainDashboardItem {
 
 	public enum DashboardAction{
+		ActionNone,
 		ActionInbox,
 		ActionOutbox,
 		ActionContactBook,
@@ -26,6 +28,10 @@ public class MainDashboardItem {
 	public int dashboardIcon;
 	public String dashboardName;
 	public DashboardAction dashboardAction;
+	
+	public int getBadgeNumber(){
+		return UserInfoStoreManager.getInstance().getBadgeNumber(dashboardAction);
+	}
 	
 	public static ArrayList<MainDashboardItem> getMainDashboardList(){
 		

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dtcs.slldt.common.SessionStore;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.model.MainDashboardItem;
 import com.dtcs.slldt.model.ResultModel;
@@ -32,6 +34,8 @@ import com.dtcs.slldt.screen.inbox.InboxScreen;
 import com.dtcs.slldt.screen.outbox.OutboxScreen;
 import com.dtcs.slldt.screen.searching.SearchingScreen;
 import com.dtcs.slldt.template.TemplateDefault;
+import com.dtcs.slldt.webservice.SMSGatewayWebservice;
+import com.dtcs.slldt.webservice.SMSGatewayWebservice.WebserviceTaskListener;
 import com.edu.ebookcontact.R;
 
 /**
@@ -113,7 +117,20 @@ public class MainScreen extends EContactFragment{
 	
 	@Override
 	public void sync() {
-		switchData();
+//		switchData();
+		String regId = SessionStore.getInstance().getRegistrationId();
+		long studentID = UserInfoStoreManager.getInstance().getCurrentStudent().Ma_Hs;
+		int osType = 5;
+		SMSGatewayWebservice.testPush(regId, studentID, osType, new WebserviceTaskListener<ResultModel>() {
+			
+			@Override
+			public void onTaskComplete(ResultModel ob, ResultModel result) {
+				if (result!=null && result.getErrorCode() == 0) {
+					Log.d("Send Push ","Success");
+				}
+			}
+		});
+		
 	}
 	
 	/**
@@ -135,6 +152,7 @@ public class MainScreen extends EContactFragment{
 				tvCurrentId.setSelected(true);
 				tvCurrentId.setEllipsize(TextUtils.TruncateAt.MARQUEE);
 				tvCurrentId.setTypeface(TemplateDefault.typeface01);
+				mAdapter.notifyDataSetChanged();
 				hideLoading();
 			}
 		});

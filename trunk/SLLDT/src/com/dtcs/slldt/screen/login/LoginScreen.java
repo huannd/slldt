@@ -89,6 +89,9 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 				@Override
 				public void onRegisterSuccess(String pRegisId) {
 					Log.i("GCM: ", pRegisId);
+					if (pRegisId != null) {
+						SessionStore.getInstance().setRegistrationId(pRegisId);
+					}
 				}
 
 				@Override

@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
 import com.dtcs.slldt.model.TotalSMSModel;
+import com.dtcs.slldt.model.MainDashboardItem.DashboardAction;
 
 public class UserInfoStoreManager {
 
@@ -71,5 +73,12 @@ public class UserInfoStoreManager {
 	
 	public void setTotalSMSModel(TotalSMSModel totalSMSModel) {
 		this.totalSMSModel = totalSMSModel;
+	}
+	
+	public int getBadgeNumber(DashboardAction action){
+		if (action == DashboardAction.ActionInbox && totalSMSModel != null) {
+			return totalSMSModel.count;
+		}
+		return 0;
 	}
 }
