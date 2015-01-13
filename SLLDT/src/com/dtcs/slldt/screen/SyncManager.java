@@ -11,7 +11,6 @@ import com.dtcs.slldt.model.TotalSMSModel;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice.WebserviceTaskListener;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SyncManager.
  */
@@ -128,6 +127,7 @@ public class SyncManager {
 			@Override
 			public void onTaskComplete(TotalSMSModel ob, ResultModel result) {
 				if (ob != null && result != null) {
+					ob.count = 3;
 					UserInfoStoreManager.getInstance().setTotalSMSModel(ob);
 				} else {
 					resultRequest.strResult = null;

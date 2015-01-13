@@ -12,6 +12,7 @@ public class SessionStore {
 	private static final String FILE_NAME 			= "userinfostore";
 	public static final String KEY_USER_ID = "userId";
 	public static final String KEY_PASSWORD = "password";
+	public static final String KEY_REGISTRATION_ID = "registrationId";
 	
 	private static SessionStore INSTANCE = null;
 	
@@ -47,5 +48,13 @@ public class SessionStore {
 		editor.commit();
 	}
 	
+	public void setRegistrationId(String registrationId){
+		Editor editor = getSharedPreferences().edit();
+		editor.putString(KEY_REGISTRATION_ID, registrationId);
+		editor.commit();
+	}
 	
+	public String getRegistrationId(){
+		return getSharedPreferences().getString(KEY_REGISTRATION_ID, null);
+	}
 }

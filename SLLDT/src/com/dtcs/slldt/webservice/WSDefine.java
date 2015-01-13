@@ -13,7 +13,8 @@ public interface WSDefine {
 	public static final String NAMESPACE 	= "http://tempuri.org/";
 	
 	/** The Constant URL. */
-	public static final String URL 			= "http://27.118.28.162/SLLMobileService1/SLLService.asmx?wsdl";
+//	public static final String URL 			= "http://27.118.28.162/SLLMobileService1/SLLService.asmx?wsdl";
+	public static final String URL 			= "http://27.118.28.162:8586/smsws/SLLMobileService/SLLService.asmx?wsdl";
 	
 	/** The Constant TIMEOUT. */
 	public static final int TIMEOUT 		= 5000;
@@ -61,6 +62,9 @@ public interface WSDefine {
 	/** The Constant METHOD_UPDATE_SMS_STATUS_BY_STUDENT_ID. */
 	public static final String METHOD_UPDATE_SMS_STATUS_BY_STUDENT_ID 	= "UpdateSmsStatusByStudentId";
 	
+	public static final String METHOD_PUSH_NOTIFICATION					= "TestPush";
+	
+	public static final String METHOD_SEND_SMS							= "SendSMS";
 	
 	//Param
 	/** The Constant PARAM_METHOD_IDENTIFIER. */
@@ -93,5 +97,12 @@ public interface WSDefine {
 	/** The Constant PARAM_STUDENT_ID. */
 	public static final String PARAM_STUDENT_ID 		= "studentId";
 	
+	public static final String PARAM_REGISTRATION_ID	= "registrationId";
+	
+	public static final String PARAM_OS_TYPE			= "osType";
+	
+	public static final String PARAM_MESSAGE_CONTENT	= "msgContent";
+	
+	public static final String PARAM_TARGET_USER_ID		= "targetUserId";
 	
 }

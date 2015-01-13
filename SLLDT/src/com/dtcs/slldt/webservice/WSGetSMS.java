@@ -608,4 +608,73 @@ public class WSGetSMS extends BaseSoapService {
 			return null;
 		}
 	}
+	
+	public ResultModel sendSMS(String targetUserId,String msgContent){
+		String refResponse = "";
+		SoapObject soapObject = createSoapObject(WSDefine.METHOD_SEND_SMS);
+		
+		PropertyInfo userIdInfo = createPropertyInfo(WSDefine.PARAM_USER_ID, 
+													SessionStore.getInstance().getUserId(), 
+													String.class);
+		
+		PropertyInfo passInfo = createPropertyInfo(WSDefine.PARAM_PASSWORD,
+													SessionStore.getInstance().getPassword(), 
+													String.class);
+		
+		PropertyInfo targetUserIdInfo = createPropertyInfo(WSDefine.PARAM_TARGET_USER_ID,
+													targetUserId, 
+													String.class);
+		
+		PropertyInfo msgContentInfo = createPropertyInfo(WSDefine.PARAM_MESSAGE_CONTENT,
+													msgContent, 
+													String.class);
+		
+		PropertyInfo methodIdentifierInfo = createPropertyInfo(WSDefine.PARAM_METHOD_IDENTIFIER, 
+																WSDefine.METHOD_SEND_SMS, 
+																String.class);
+		
+		PropertyInfo authenticationInfo = createPropertyInfo(WSDefine.PARAM_AUTHENTICATION_KEY, 
+																WSDefine.AKEY, 
+																String.class);
+		PropertyInfo checksumInfo = createPropertyInfo(WSDefine.PARAM_CHECKSUM, 
+																MD5.encrypt((WSDefine.METHOD_SEND_SMS+WSDefine.AKEY)),
+																String.class);
+		PropertyInfo responseInfo = createPropertyInfo(WSDefine.PARAM_RESPONSE, 
+																refResponse,
+																String.class);
+		soapObject.addProperty(userIdInfo);
+		soapObject.addProperty(passInfo);
+		soapObject.addProperty(msgContentInfo);
+		soapObject.addProperty(targetUserIdInfo);
+		soapObject.addProperty(methodIdentifierInfo);
+		soapObject.addProperty(authenticationInfo);
+		soapObject.addProperty(checksumInfo);
+//		soapObject.addProperty(responseInfo);
+		
+		SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(soapObject);
+		HttpTransportSE ht = getHttpTransportSE();
+		ResultModel ret = new ResultModel();
+		try {
+			ht.call(getSoapAction(WSDefine.METHOD_SEND_SMS), envelope);
+			SoapObject respondsObject = (SoapObject)envelope.bodyIn;
+			String responds = respondsObject.getPropertyAsString(0);
+			if (responds!=null) {
+				ret.strResult = responds;
+			}
+			return ret;
+		} catch (HttpResponseException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

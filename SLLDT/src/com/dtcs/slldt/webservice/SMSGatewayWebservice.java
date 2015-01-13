@@ -8,6 +8,7 @@ import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
 import com.dtcs.slldt.model.TotalSMSModel;
+import com.google.android.gms.internal.nu;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -259,6 +260,41 @@ public class SMSGatewayWebservice {
 			protected void onPostExecute(ArrayList<SMSModel> result) {
 				if (webserviceTaskListener != null) {
 					webserviceTaskListener.onTaskComplete(result,refResult);
+				}
+			};
+			
+		}.execute();
+	}
+	
+	public static void sendSMS(final String targetUserId,final String msgContent,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
+		new AsyncTask<Void, Void, ResultModel>() {
+			@Override
+			protected ResultModel doInBackground(Void... params) {
+				ResultModel ret = new WSGetSMS().sendSMS(targetUserId, msgContent);
+				return ret;
+			}
+			
+			protected void onPostExecute(ResultModel result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(null,result);
+				}
+			};
+			
+		}.execute();
+	}
+	
+	public static void testPush(final String registrationId, final long studentId, final int osType ,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
+		new AsyncTask<Void, Void, ResultModel>() {
+
+			@Override
+			protected ResultModel doInBackground(Void... params) {
+				ResultModel result =  new WSPushNotification().TestPush(registrationId, studentId, osType);
+				return result;
+			}
+			
+			protected void onPostExecute(ResultModel result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(null,result);
 				}
 			};
 			
