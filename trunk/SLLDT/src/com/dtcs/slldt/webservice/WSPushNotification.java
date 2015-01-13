@@ -34,7 +34,7 @@ public class WSPushNotification extends BaseSoapService {
 													SessionStore.getInstance().getUserId(), 
 													String.class);
 		
-		PropertyInfo osTypeInfo = createPropertyInfo(WSDefine.PARAM_PHONENUMBER, 
+		PropertyInfo osTypeInfo = createPropertyInfo(WSDefine.PARAM_OS_TYPE, 
 													osType, 
 													Integer.class);
 		
