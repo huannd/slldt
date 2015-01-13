@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_dashboard_height"
+        android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
-        android:padding="@dimen/layout_margin_normal"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="@dimen/layout_margin_normal" >
 
-        <ImageView
-            android:id="@+id/img_dashboard_icon"
-            android:layout_width="fill_parent"
-            android:layout_height="0.0dip"
-            android:layout_weight="1.0"
-            android:scaleType="centerInside"
-            android:src="@drawable/inbox" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/img_dashboard_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/inbox" />
+
+            <TextView
+                android:id="@+id/tv_badge_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/layout_margin_small"
+                android:layout_marginTop="@dimen/layout_margin_xnormal"
+                android:background="@drawable/ic_badge_number"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_dashboard_title"
@@ -26,7 +45,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/lbl_sms_inbox"
-            android:textSize="@dimen/text_size_normal"/>
+            android:textSize="@dimen/text_size_normal" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
