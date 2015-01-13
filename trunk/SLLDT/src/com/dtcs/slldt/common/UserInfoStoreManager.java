@@ -81,4 +81,14 @@ public class UserInfoStoreManager {
 		}
 		return 0;
 	}
+	
+	public ArrayList<SMSModel> filterSMSByStudentId(long studentId){
+		ArrayList<SMSModel> ret = new ArrayList<SMSModel>();
+//		if (listSMS!=null && listSMS.size()>0) {
+//			for (SMSModel smsModel : ret) {
+//				
+//			}
+//		}
+		return ret;
+	}
 }

@@ -11,6 +11,8 @@ public class SMSModel {
 	public String Sms_Id;
 	public String Noi_Dung;
 	public String Ngay_Duyet;
+	public String SDT_Gui;
+	public String SDT_Nhan;
 	
 	public Date getTime(){
 		try {
