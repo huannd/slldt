@@ -21,7 +21,6 @@ public class MyNotificationManager {
     private static final String LOG_TAG = MyNotificationManager.class.getSimpleName();
 
     private static final int ICON = R.drawable.ic_launcher;
-    private static final String TEXT_TITLE = "Imadoko";
 
 
     private static int requestId = 1101;
@@ -61,7 +60,6 @@ public class MyNotificationManager {
 
         final Intent intent = new Intent(pContext, MainActivity.class);
         intent.putExtra(GCMManagerMessage.GCM_MSG_KEY, content);
-        intent.putExtra(ICommonDefine.SCREEN_KEY, ICommonDefine.SCREEN_MAIN);
         // intent.setAction(action)
 
         PendingIntent resultPendingIntent =

@@ -175,13 +175,19 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 					mListStudent = ob;
 //					showListStudentDialog();
 					UserInfoStoreManager.getInstance().setListStudent(mListStudent);
-					switchContent(new MainScreen(), true);
+					gotoMainScreen();
 				} else {
 					tvError.setText(getResources().getString(R.string.err_network_connection));
 				}
 				setLoginState(false);
 			}
 		});
+	}
+	
+	private void gotoMainScreen(){
+		MainScreen mainFrag = new MainScreen();
+		mainFrag.setShowListStudent(true);
+		switchContent(mainFrag, true);
 	}
 
 	private void showListStudentDialog() {
@@ -202,7 +208,7 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 				idPickerDialog.dismiss();
 				UserInfoStoreManager.getInstance().setListStudent(mListStudent);
 				UserInfoStoreManager.getInstance().setCurrentStudent(mListStudent.get(position));
-				switchContent(new MainScreen(), true);
+				gotoMainScreen();
 			}
 		});
 

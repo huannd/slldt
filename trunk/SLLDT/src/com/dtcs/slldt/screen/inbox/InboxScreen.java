@@ -2,6 +2,7 @@ package com.dtcs.slldt.screen.inbox;
 
 import java.util.ArrayList;
 
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
 import com.dtcs.slldt.screen.SMSAdapter;
 import com.dtcs.slldt.screen.base.EContactFragment;
+import com.dtcs.slldt.screen.main.MainScreen;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice.WebserviceTaskListener;
 import com.edu.ebookcontact.R;
@@ -52,6 +54,7 @@ public class InboxScreen extends EContactFragment {
 					mDatas.clear();
 					mDatas.addAll(ob);
 					mAdapter.notifyDataSetChanged();
+					Toast.makeText(getActivity(), "get data completed", Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getActivity(), "Lấy dữ liệu thất bại. Vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
 				}
@@ -63,5 +66,17 @@ public class InboxScreen extends EContactFragment {
 	@Override
 	public String getTitle() {
 		return getResources().getString(R.string.lbl_sms_inbox);
+	}
+
+	@Override
+	public void onBackPress() {
+		FragmentManager fm = getActivity().getSupportFragmentManager();
+		if (fm.getBackStackEntryCount() > 1) {
+			super.onBackPress();
+		} else {
+			MainScreen main = new MainScreen();
+			main.setShowListStudent(false);
+			switchContent(main, true);
+		}
 	}
 }
