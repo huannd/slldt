@@ -19,11 +19,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dtcs.slldt.common.SessionStore;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.model.MainDashboardItem;
 import com.dtcs.slldt.model.ResultModel;
+import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
 import com.dtcs.slldt.screen.ISyncListener;
 import com.dtcs.slldt.screen.StudentAdapter;
@@ -74,6 +76,7 @@ public class MainScreen extends EContactFragment{
 		mProgressDialog.setMessage("tải dữ liệu...");
 		init();
 		showListStudentDialog(false);
+//		getAllData();
 		return v;
 	}
 	
@@ -114,7 +117,7 @@ public class MainScreen extends EContactFragment{
 			}
 		});
 	}
-	
+		
 	@Override
 	public void sync() {
 //		switchData();
@@ -138,24 +141,31 @@ public class MainScreen extends EContactFragment{
 	 */
 	private void switchData(){
 		mCurrentStudent = UserInfoStoreManager.getInstance().getCurrentStudent();
-		SyncManager.getInstance().syncData(mCurrentStudent.Ma_Hs,new ISyncListener() {
-			
-			@Override
-			public void syncStart() {
-				showLoading();
-			}
-			
-			@Override
-			public void syncComplete(ResultModel result) {
-				String info = "Tên : " + mCurrentStudent.Hoten_HocSinh + " | Lớp : " + mCurrentStudent.Ten_Lop + " | Trường : " + mCurrentStudent.Ten_Truong;
-				tvCurrentId.setText(info);
-				tvCurrentId.setSelected(true);
-				tvCurrentId.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-				tvCurrentId.setTypeface(TemplateDefault.typeface01);
-				mAdapter.notifyDataSetChanged();
-				hideLoading();
-			}
-		});
+		String info = "Tên : " + mCurrentStudent.Hoten_HocSinh + " | Lớp : " + mCurrentStudent.Ten_Lop + " | Trường : " + mCurrentStudent.Ten_Truong;
+		tvCurrentId.setText(info);
+		tvCurrentId.setSelected(true);
+		tvCurrentId.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+		tvCurrentId.setTypeface(TemplateDefault.typeface01);
+		mAdapter.notifyDataSetChanged();
+//		hideLoading();
+//		SyncManager.getInstance().syncData(mCurrentStudent.Ma_Hs,new ISyncListener() {
+//			
+//			@Override
+//			public void syncStart() {
+//				showLoading();
+//			}
+//			
+//			@Override
+//			public void syncComplete(ResultModel result) {
+//				String info = "Tên : " + mCurrentStudent.Hoten_HocSinh + " | Lớp : " + mCurrentStudent.Ten_Lop + " | Trường : " + mCurrentStudent.Ten_Truong;
+//				tvCurrentId.setText(info);
+//				tvCurrentId.setSelected(true);
+//				tvCurrentId.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+//				tvCurrentId.setTypeface(TemplateDefault.typeface01);
+//				mAdapter.notifyDataSetChanged();
+//				hideLoading();
+//			}
+//		});
 	}
 	
 	/**
