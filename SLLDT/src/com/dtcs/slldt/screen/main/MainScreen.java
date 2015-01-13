@@ -19,17 +19,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dtcs.slldt.common.SessionStore;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.model.MainDashboardItem;
 import com.dtcs.slldt.model.ResultModel;
-import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
-import com.dtcs.slldt.screen.ISyncListener;
 import com.dtcs.slldt.screen.StudentAdapter;
-import com.dtcs.slldt.screen.SyncManager;
 import com.dtcs.slldt.screen.account.AccountScreen;
 import com.dtcs.slldt.screen.base.EContactFragment;
 import com.dtcs.slldt.screen.inbox.InboxScreen;
@@ -63,6 +59,16 @@ public class MainScreen extends EContactFragment{
 	/** The m progress dialog. */
 	private ProgressDialog mProgressDialog;
 	
+	private boolean isShowListStudent = false;
+	
+	
+	/**
+	 * @param isShowListStudent the isShowListStudent to set
+	 */
+	public void setShowListStudent(boolean isShowListStudent) {
+		this.isShowListStudent = isShowListStudent;
+	}
+
 	/* (non-Javadoc)
 	 * @see com.dtcs.slldt.screen.base.BaseFragment#onCreateContentView(android.view.LayoutInflater, android.view.ViewGroup)
 	 */
@@ -75,7 +81,9 @@ public class MainScreen extends EContactFragment{
 		mProgressDialog = new ProgressDialog(getActivity());
 		mProgressDialog.setMessage("tải dữ liệu...");
 		init();
-		showListStudentDialog(false);
+		if (isShowListStudent){
+			showListStudentDialog(false);
+		}
 //		getAllData();
 		return v;
 	}

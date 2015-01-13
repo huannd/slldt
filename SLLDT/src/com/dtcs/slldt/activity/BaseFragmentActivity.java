@@ -144,4 +144,8 @@ public class BaseFragmentActivity extends FragmentActivity{
     	return null;
     }
     
+    public Fragment getCurrentFragment() {
+        return getSupportFragmentManager().findFragmentById(R.id.content_frame);
+    }
+    
 }
