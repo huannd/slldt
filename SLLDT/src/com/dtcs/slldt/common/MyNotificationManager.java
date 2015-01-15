@@ -35,7 +35,7 @@ public class MyNotificationManager {
 
 	public void setMessageAndKey(String mMessage, String nId) {
 		if (nId != null && !nId.equalsIgnoreCase("")) {
-			this.requestId = Integer.parseInt(nId);
+			this.requestId = Integer.valueOf(nId);
 		}
 		this.mMessage = mMessage;
 	}

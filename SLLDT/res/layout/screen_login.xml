@@ -96,6 +96,7 @@
                                 android:layout_gravity="center"
                                 android:ems="10"
                                 android:hint="Số điện thoại"
+                                android:text="01647731876"
                                 android:inputType="phone" />
                         </LinearLayout>
 
@@ -111,6 +112,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:ems="10"
+                                android:text="12345678"
                                 android:hint="Mật khẩu"
                                 android:inputType="textPassword" />
                         </LinearLayout>

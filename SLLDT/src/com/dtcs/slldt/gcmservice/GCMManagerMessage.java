@@ -8,20 +8,18 @@ import android.util.Log;
 
 import com.dtcs.slldt.EBookContactApp;
 import com.dtcs.slldt.common.MyNotificationManager;
+import com.dtcs.slldt.common.UserInfoStoreManager;
 
 /**
  * @author TND
  * 
  */
 public class GCMManagerMessage {
-	// FIXME: key get message is client guess:
 	public static final String GCM_MSG_KEY = "alert";
 	public static final String KEY_STUDENT_ID = "studentId";
 	public static final String KEY_COMMAND = "command";
 	public static final String KEY_PHONE = "So_Dien_Thoai";
-	
-	
-	
+
 	private static GCMManagerMessage instance = null;
 
 	/**
@@ -82,20 +80,17 @@ public class GCMManagerMessage {
 	public void onMessageSendError(Intent pIntent) {
 	}
 
-	String GCM = "gcm";
-
 	public void onMessageRegular(Intent pIntent) {
-		Log.e("GCMManagerMessage", "GCMManagerMessage received");
-		String content = pIntent.getStringExtra(GCM_MSG_KEY);
-		System.err.println("Alert:  " + content);
-		Log.i(GCM, "command: " + pIntent.getStringExtra("command"));
-		Log.i(GCM, "So_Dien_Thoai: " + pIntent.getStringExtra("So_Dien_Thoai"));
-		Log.i(GCM, "studentId: " + pIntent.getStringExtra("studentId"));
-
-		System.err.println("Msg:  " + pIntent.getStringExtra("msg"));
 		if (listDelegateOnNewMessage != null) {
 			for (OnGCMNewMessageListener receiver : listDelegateOnNewMessage) {
-				receiver.onNewMessage(content);
+				int cur = (int) UserInfoStoreManager.getInstance().getCurrentStudentId();
+				String sId = pIntent.getStringExtra(KEY_STUDENT_ID);
+				if (sId != null && !sId.equalsIgnoreCase("") && !sId.equalsIgnoreCase(" ")) {
+					int idPush = Integer.valueOf(sId);
+					if (cur == idPush) {
+						receiver.onNewMessage(Integer.valueOf(idPush));
+					}
+				}
 			}
 		}
 		// make notification when received message
