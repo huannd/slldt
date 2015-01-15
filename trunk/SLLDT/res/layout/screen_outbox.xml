@@ -37,6 +37,7 @@
             android:textSize="@dimen/text_size_normal" />
         
         <ImageView 
+            android:id="@+id/btnOutSMS"
             android:layout_width="@dimen/sms_compose_width"
             android:layout_height="@dimen/sms_compose_width"
             android:layout_marginLeft="@dimen/layout_margin_small"
