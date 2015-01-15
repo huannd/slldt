@@ -17,7 +17,8 @@ public class MainActivity extends BaseFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Fragment cur = getCurrentFragment();
-		if (cur != null && !(cur instanceof InboxScreen)) {
+		boolean isStartFromNotification = getIntent().getBooleanExtra(ICommonDefine.KEY_START_FROM_NOTIFICATION, false);
+		if (isStartFromNotification || (cur != null && !(cur instanceof InboxScreen))) {
 			switchContent(new InboxScreen(), false);
 		} else {
 			switchContent(new LoginScreen(), false);

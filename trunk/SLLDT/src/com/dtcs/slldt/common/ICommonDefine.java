@@ -11,4 +11,5 @@ public interface ICommonDefine {
 	String DATE_FORMAT = "MM/dd/yyyy";
 	
 	String KEY_NOTIFICATION_FOR_STUDENT_ID = "KEY_NOTIFICATION_FOR_STUDENT_ID";
+	String KEY_START_FROM_NOTIFICATION = "is start app from notification";
 }

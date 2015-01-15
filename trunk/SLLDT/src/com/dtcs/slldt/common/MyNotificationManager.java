@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import com.dtcs.slldt.activity.MainActivity;
 import com.dtcs.slldt.gcmservice.GCMManagerMessage;
 import com.edu.ebookcontact.R;
+import com.google.android.gms.internal.in;
 
 /**
  * @author TND
@@ -63,6 +64,7 @@ public class MyNotificationManager {
 		final Intent intent = new Intent(pContext, MainActivity.class);
 		intent.putExtra(GCMManagerMessage.GCM_MSG_KEY, content);
 		intent.putExtra(ICommonDefine.KEY_NOTIFICATION_FOR_STUDENT_ID, requestId);
+		intent.putExtra(ICommonDefine.KEY_START_FROM_NOTIFICATION, true);
 		// intent.setAction(action)
 
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(pContext, requestId, intent,
