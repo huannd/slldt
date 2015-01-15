@@ -28,4 +28,7 @@
     <string name="err_wrong_phone_or_pass">Số điện thoại hoặc mật khẩu sai.\nVui lòng nhập lại</string>
     <string name="err_network_connection">Kết nối mạng sảy ra lỗi.\nVui lòng thử lại sau</string>
     <string name="err_not_exist_account">Tài khoản không tồn tại.\nVui lòng kiểm tra lại.</string>
+    
+    <string name="title_out_sms">Write SMS</string>
+    <string name="title_in_sms">SMS</string>
 </resources>
