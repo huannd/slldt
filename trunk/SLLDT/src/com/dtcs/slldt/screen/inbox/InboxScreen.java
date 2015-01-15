@@ -25,6 +25,7 @@ public class InboxScreen extends EContactFragment {
 	private ListView mListView;
 	private ArrayList<SMSModel> mDatas;
 	private SMSAdapter mAdapter;
+	private long currentStudentId = -1;
 	
 	@Override
 	protected View onCreateContentView(LayoutInflater inflater,
@@ -32,8 +33,19 @@ public class InboxScreen extends EContactFragment {
 		View v = LayoutInflater.from(getActivity()).inflate(R.layout.screen_inbox, container,false);
 		mListView = (ListView) v.findViewById(R.id.lv_inbox);
 		init();
-		getInboxDatas();
+//		currentStudentId = UserInfoStoreManager.getInstance().getCurrentStudentId();
+//		getInboxDatas();
 		return v;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		long studentId = UserInfoStoreManager.getInstance().getCurrentStudentId();
+		if (currentStudentId != studentId) {
+			currentStudentId = studentId;
+			getInboxDatas();
+		}
 	}
 	
 	private void init(){
