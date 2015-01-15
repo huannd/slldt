@@ -155,6 +155,16 @@ public class MainScreen extends EContactFragment{
 			}
 		});
 		
+//		SMSGatewayWebservice.sendSMS("01272768149", "Test Send SMS", new WebserviceTaskListener<ResultModel>() {
+//			
+//			@Override
+//			public void onTaskComplete(ResultModel ob, ResultModel result) {
+//				if (result!=null && result.getErrorCode() == 0){
+//					Log.d("Send SMS : ", "Success");
+//				}
+//			}
+//		});
+		
 	}
 	
 	/**

@@ -30,10 +30,12 @@ public class SMSAdapter extends BaseListAdapter<SMSModel>{
 		}
 		TextView txtStt = ViewHolder.get(convertView, R.id.tv_sms_stt);
 		TextView txtTime = ViewHolder.get(convertView, R.id.tv_sms_time);
+		TextView txtPhone = ViewHolder.get(convertView, R.id.tv_phone);
 		TextView txtContent = ViewHolder.get(convertView,R.id.tv_sms_content);
 		SMSModel model = getItem(position);
 		if (model!=null) {
 			txtStt.setText(""+(position+1));
+			txtPhone.setText(getPhoneAtPosition(position));
 			Date smsTime = model.getTime();
 			if (smsTime!=null) {
 				txtTime.setText(DateFormat.format("dd-MM-yyyy", smsTime));
@@ -43,6 +45,14 @@ public class SMSAdapter extends BaseListAdapter<SMSModel>{
 			txtContent.setText(model.Noi_Dung);
 		}
 		return convertView;
+	}
+	
+	protected String getPhoneAtPosition(int pos){
+		SMSModel model = getItem(pos);
+		if (model.SDT_Gui != null && !model.SDT_Gui.trim().equals("")) {
+			return "From: "+model.SDT_Gui;
+		}
+		return "";
 	}
 
 }

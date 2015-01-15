@@ -187,6 +187,24 @@ public class SMSGatewayWebservice {
 		}.execute();
 	}
 	
+	public static void getListSmsSended(final WebserviceTaskListener<ArrayList<SMSModel>> webserviceTaskListener){		
+		new AsyncTask<Void, Void, ArrayList<SMSModel>>() {
+			ResultModel refResult = new ResultModel(); 
+			@Override
+			protected ArrayList<SMSModel> doInBackground(Void... params) {
+				ArrayList<SMSModel> ret = new WSGetSMS().getListSmsSended(refResult);
+				return ret;
+			}
+			
+			protected void onPostExecute(ArrayList<SMSModel> result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(result,refResult);
+				}
+			};
+			
+		}.execute();
+	}
+	
 	/**
 	 * Gets the list sms by sudent id.
 	 *
@@ -271,6 +289,23 @@ public class SMSGatewayWebservice {
 			@Override
 			protected ResultModel doInBackground(Void... params) {
 				ResultModel ret = new WSGetSMS().sendSMS(targetUserId, msgContent);
+				return ret;
+			}
+			
+			protected void onPostExecute(ResultModel result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(null,result);
+				}
+			};
+			
+		}.execute();
+	}
+	
+	public static void registerPushNotification(final String registrationId,final String deviceInfo,final int osType,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
+		new AsyncTask<Void, Void, ResultModel>() {
+			@Override
+			protected ResultModel doInBackground(Void... params) {
+				ResultModel ret = new WSPushNotification().registerPushNotification(registrationId, deviceInfo, osType);
 				return ret;
 			}
 			

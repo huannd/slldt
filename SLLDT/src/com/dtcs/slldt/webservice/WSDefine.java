@@ -66,6 +66,10 @@ public interface WSDefine {
 	
 	public static final String METHOD_SEND_SMS							= "SendSMS";
 	
+	public static final String METHOD_REGISTER_PUSH_NOTIFICATION		= "InsertRegistration";
+	
+	public static final String METHOD_GET_LIST_SMS_SENDED				= "GetListSmsSended";
+	
 	//Param
 	/** The Constant PARAM_METHOD_IDENTIFIER. */
 	public static final String PARAM_METHOD_IDENTIFIER 	= "methodIdentifier";
@@ -105,4 +109,5 @@ public interface WSDefine {
 	
 	public static final String PARAM_TARGET_USER_ID		= "targetUserId";
 	
+	public static final String PARAM_DEVICE_INFO		= "deviceInfo";
 }
