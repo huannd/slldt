@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.dtcs.slldt.screen.StudentAdapter;
 import com.dtcs.slldt.screen.account.AccountScreen;
 import com.dtcs.slldt.screen.base.EContactFragment;
 import com.dtcs.slldt.screen.inbox.InboxScreen;
+import com.dtcs.slldt.screen.login.LoginScreen;
 import com.dtcs.slldt.screen.outbox.OutboxScreen;
 import com.dtcs.slldt.screen.searching.SearchingScreen;
 import com.dtcs.slldt.template.TemplateDefault;
@@ -61,7 +63,7 @@ public class MainScreen extends EContactFragment{
 	
 	private boolean isShowListStudent = false;
 	
-	
+	private long currentStudentId = -1;
 	/**
 	 * @param isShowListStudent the isShowListStudent to set
 	 */
@@ -81,11 +83,22 @@ public class MainScreen extends EContactFragment{
 		mProgressDialog = new ProgressDialog(getActivity());
 		mProgressDialog.setMessage("tải dữ liệu...");
 		init();
+//		currentStudentId = UserInfoStoreManager.getInstance().getCurrentStudentId();
 		if (isShowListStudent){
 			showListStudentDialog(false);
 		}
 //		getAllData();
 		return v;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		long studentId = UserInfoStoreManager.getInstance().getCurrentStudentId();
+		if (currentStudentId != studentId) {
+			currentStudentId = studentId;
+			switchData();
+		}
 	}
 	
 	/**
@@ -208,7 +221,8 @@ public class MainScreen extends EContactFragment{
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 						idPickerDialog.dismiss();
 //						UserInfoStoreManager.getInstance().setCurrentStudent(students.get(position));
-						UserInfoStoreManager.getInstance().setCurrentStudentId(students.get(position).Ma_Hs);
+						currentStudentId = students.get(position).Ma_Hs;
+						UserInfoStoreManager.getInstance().setCurrentStudentId(currentStudentId);
 						switchData();
 					}
 				});
@@ -233,4 +247,15 @@ public class MainScreen extends EContactFragment{
 		return getResources().getString(R.string.app_nameH);
 	}
 	
+	@Override
+	public void onBackPress() {
+		FragmentManager fm = getActivity().getSupportFragmentManager();
+		if (fm.getBackStackEntryCount() > 1) {
+			super.onBackPress();
+		} else {
+			LoginScreen login = new LoginScreen();
+			login.setAutoLogin(false);
+			switchContent(login, false);
+		}
+	}
 }
