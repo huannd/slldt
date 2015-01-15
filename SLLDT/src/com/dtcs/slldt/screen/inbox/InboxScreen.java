@@ -41,6 +41,10 @@ public class InboxScreen extends EContactFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		showInbox();
+	}
+	
+	public void showInbox(){
 		long studentId = UserInfoStoreManager.getInstance().getCurrentStudentId();
 		if (currentStudentId != studentId) {
 			currentStudentId = studentId;
@@ -88,7 +92,7 @@ public class InboxScreen extends EContactFragment {
 		} else {
 			MainScreen main = new MainScreen();
 			main.setShowListStudent(false);
-			switchContent(main, true);
+			switchContent(main, false);
 		}
 	}
 }

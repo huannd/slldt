@@ -32,16 +32,17 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 	private void showScreenWithCheck(Intent intent) {
+		int stID = intent.getIntExtra(ICommonDefine.KEY_NOTIFICATION_FOR_STUDENT_ID, 0);
+		if (stID > 0) {
+			UserInfoStoreManager.getInstance().setCurrentStudentId(stID);
+			Log.i("current ID", "id:  " + stID);
+		}
 		Fragment cur = getCurrentFragment();
 		if (cur != null && !(cur instanceof InboxScreen)) {
-			int stID = intent.getIntExtra(ICommonDefine.KEY_NOTIFICATION_FOR_STUDENT_ID, 0);
-			if (stID > 0) {
-				UserInfoStoreManager.getInstance().setCurrentStudentId(stID);
-				Log.i("current ID", "id:  " + stID);
-			}
 			switchContent(new InboxScreen(), false);
 		} else if (cur instanceof InboxScreen) {
 			Toast.makeText(this, "goi request get inbox", Toast.LENGTH_SHORT).show();
+			((InboxScreen)cur).showInbox();
 		}
 	}
 }
