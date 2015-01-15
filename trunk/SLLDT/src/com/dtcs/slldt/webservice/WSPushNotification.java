@@ -93,4 +93,84 @@ public class WSPushNotification extends BaseSoapService {
 		}
 		
 	}
+	
+	public ResultModel registerPushNotification(String registrationId, String deviceInfo, int osType){
+		String refResponse = "";
+		SoapObject soapObject = createSoapObject(WSDefine.METHOD_REGISTER_PUSH_NOTIFICATION);
+		
+		PropertyInfo userIdInfo = createPropertyInfo(WSDefine.PARAM_USER_ID, 
+													SessionStore.getInstance().getUserId(), 
+													String.class);
+		
+		PropertyInfo passInfo = createPropertyInfo(WSDefine.PARAM_PASSWORD,
+													SessionStore.getInstance().getPassword(), 
+													String.class);
+		
+		PropertyInfo registrationIdInfo = createPropertyInfo(WSDefine.PARAM_REGISTRATION_ID, 
+													registrationId, 
+													String.class);
+		
+		PropertyInfo phoneNumberInfo = createPropertyInfo(WSDefine.PARAM_PHONENUMBER, 
+													SessionStore.getInstance().getUserId(), 
+													String.class);
+		
+		PropertyInfo osTypeInfo = createPropertyInfo(WSDefine.PARAM_OS_TYPE, 
+													osType, 
+													Integer.class);
+		
+		PropertyInfo devicePropertyInfo = createPropertyInfo(WSDefine.PARAM_DEVICE_INFO, 
+													deviceInfo, 
+													String.class);
+		
+		PropertyInfo methodIdentifierInfo = createPropertyInfo(WSDefine.PARAM_METHOD_IDENTIFIER, 
+																WSDefine.METHOD_REGISTER_PUSH_NOTIFICATION, 
+																String.class);
+		
+		PropertyInfo authenticationInfo = createPropertyInfo(WSDefine.PARAM_AUTHENTICATION_KEY, 
+																WSDefine.AKEY, 
+																String.class);
+		PropertyInfo checksumInfo = createPropertyInfo(WSDefine.PARAM_CHECKSUM, 
+																MD5.encrypt((WSDefine.METHOD_REGISTER_PUSH_NOTIFICATION+WSDefine.AKEY)),
+																String.class);
+		PropertyInfo responseInfo = createPropertyInfo(WSDefine.PARAM_RESPONSE, 
+																refResponse,
+																String.class);
+		
+		soapObject.addProperty(userIdInfo);
+		soapObject.addProperty(passInfo);
+		soapObject.addProperty(osTypeInfo);
+		soapObject.addProperty(phoneNumberInfo);
+		soapObject.addProperty(registrationIdInfo);
+		soapObject.addProperty(devicePropertyInfo);
+		soapObject.addProperty(methodIdentifierInfo);
+		soapObject.addProperty(authenticationInfo);
+		soapObject.addProperty(checksumInfo);
+//		soapObject.addProperty(responseInfo);
+		
+		SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(soapObject);
+		HttpTransportSE ht = getHttpTransportSE();
+		ResultModel ret = new ResultModel();
+		try {
+			ht.call(getSoapAction(WSDefine.METHOD_REGISTER_PUSH_NOTIFICATION), envelope);
+			SoapObject respondsObject = (SoapObject)envelope.bodyIn;
+			String responds = respondsObject.getPropertyAsString(0);
+			if (responds!=null) {
+				ret.strResult = responds;
+			}
+			return ret;
+		} catch (HttpResponseException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dtcs.slldt.common.DeviceInfoStore;
 import com.dtcs.slldt.common.SessionStore;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.gcmservice.GCMRequester;
@@ -68,9 +69,9 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 				startLogin();
 			}
 		}
-		if (isAutoLogin) {
-			actionRegisterGCM();
-		}
+//		if (isAutoLogin) {
+//			actionRegisterGCM();
+//		}
 	}
 
 	public void setAutoLogin(boolean isAuto){
@@ -88,10 +89,22 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 			GCMRequester.getInstance().register(getActivity(), new IHandleRegisterGCMKey() {
 
 				@Override
-				public void onRegisterSuccess(String pRegisId) {
+				public void onRegisterSuccess(final String pRegisId) {
 					Log.i("GCM: ", pRegisId);
+					String prefRegisId = SessionStore.getInstance().getRegistrationId();
+					if (prefRegisId!=null && pRegisId!=null && prefRegisId.equals(pRegisId)) return;
 					if (pRegisId != null) {
-						SessionStore.getInstance().setRegistrationId(pRegisId);
+						String deviceInfo = DeviceInfoStore.getInstance().getDeviceInfo();
+						int osType = DeviceInfoStore.getInstance().getOsType();
+						SMSGatewayWebservice.registerPushNotification(pRegisId, deviceInfo, osType, new WebserviceTaskListener<ResultModel>() {
+							
+							@Override
+							public void onTaskComplete(ResultModel ob, ResultModel result) {
+								if (result!=null && result.getErrorCode() == 0) {
+									SessionStore.getInstance().setRegistrationId(pRegisId);
+								}
+							}
+						});
 					}
 				}
 
@@ -157,6 +170,7 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 						SessionStore.getInstance().setPassword(pass);
 						UserInfoStoreManager.getInstance().setPhoneNumber(phone);
 						getListStudent();
+						actionRegisterGCM();
 						// switchContent(new MainScreen(), false);
 					} else {
 						tvError.setText(getResources().getString(R.string.err_not_exist_account));
