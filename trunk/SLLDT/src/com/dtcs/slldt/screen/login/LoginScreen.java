@@ -35,7 +35,8 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 //	private ProgressBar prgLogin;
 	private ProgressDialog prgLogin;
 	private ArrayList<StudentModel> mListStudent;
-
+	private boolean isAutoLogin = true;
+	
 	@Override
 	protected View onCreateContentView(LayoutInflater inflater, ViewGroup container) {
 		View v = LayoutInflater.from(getActivity()).inflate(R.layout.screen_lg, container, false);
@@ -63,11 +64,19 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 		if (userIdStore != null && password != null) {
 			edtPhone.setText(userIdStore);
 			edtPassword.setText(password);
-			startLogin();
+			if (isAutoLogin) {
+				startLogin();
+			}
 		}
-		actionRegisterGCM();
+		if (isAutoLogin) {
+			actionRegisterGCM();
+		}
 	}
 
+	public void setAutoLogin(boolean isAuto){
+		isAutoLogin = isAuto;
+	}
+	
 	/**
 	 * <p>
 	 * Check Google play Service application install on Device, if not install

@@ -18,7 +18,7 @@ public class UserInfoStoreManager {
 	private ArrayList<StudentModel> listStudent;
 //	private ArrayList<SMSModel> listSMS;
 //	private StudentModel currentStudent;
-	private long currentStudentId;
+	private long currentStudentId = -1;
 	private String phoneNumber;
 	private TotalSMSModel totalSMSModel;
 	  
