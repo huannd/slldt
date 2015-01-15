@@ -13,12 +13,13 @@ import com.dtcs.slldt.model.MainDashboardItem.DashboardAction;
 public class UserInfoStoreManager {
 
 	private static UserInfoStoreManager INSTANCE = null;
+	private SimpleDateFormat dateFormat;
 	
 	private ArrayList<StudentModel> listStudent;
-	private ArrayList<SMSModel> listSMS;
-	private StudentModel currentStudent;
+//	private ArrayList<SMSModel> listSMS;
+//	private StudentModel currentStudent;
+	private long currentStudentId;
 	private String phoneNumber;
-	private SimpleDateFormat dateFormat;
 	private TotalSMSModel totalSMSModel;
 	  
 	public static UserInfoStoreManager getInstance(){
@@ -37,12 +38,13 @@ public class UserInfoStoreManager {
 	}
 
 	public StudentModel getCurrentStudent() {
-		return currentStudent;
+//		return currentStudent;
+		return getStudentById(currentStudentId);
 	}
-
-	public void setCurrentStudent(StudentModel currentStudent) {
-		this.currentStudent = currentStudent;
-	}
+//
+//	public void setCurrentStudent(StudentModel currentStudent) {
+//		this.currentStudent = currentStudent;
+//	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -52,13 +54,13 @@ public class UserInfoStoreManager {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public ArrayList<SMSModel> getListSMS() {
-		return listSMS;
-	}
-
-	public void setListSMS(ArrayList<SMSModel> listSMS) {
-		this.listSMS = listSMS;
-	}
+//	public ArrayList<SMSModel> getListSMS() {
+//		return listSMS;
+//	}
+//
+//	public void setListSMS(ArrayList<SMSModel> listSMS) {
+//		this.listSMS = listSMS;
+//	}
 	
 	public SimpleDateFormat getDateFormat(){
 		if (dateFormat == null) {
@@ -90,5 +92,23 @@ public class UserInfoStoreManager {
 //			}
 //		}
 		return ret;
+	}
+	
+	public long getCurrentStudentId() {
+		return currentStudentId;
+	}
+
+	public void setCurrentStudentId(long currentStudentId) {
+		this.currentStudentId = currentStudentId;
+	}
+
+	public StudentModel getStudentById(long id){
+		if (listStudent == null) return null;
+		for (StudentModel model : listStudent) {
+			if (model.Ma_Hs == id) {
+				return model;
+			}
+		}
+		return null;
 	}
 }

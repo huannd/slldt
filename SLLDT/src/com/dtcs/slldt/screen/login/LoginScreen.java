@@ -2,7 +2,6 @@ package com.dtcs.slldt.screen.login;
 
 import java.util.ArrayList;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.text.Html;
 import android.util.Log;
@@ -10,13 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dtcs.slldt.common.SessionStore;
@@ -25,7 +18,6 @@ import com.dtcs.slldt.gcmservice.GCMRequester;
 import com.dtcs.slldt.gcmservice.GCMRequester.IHandleRegisterGCMKey;
 import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.StudentModel;
-import com.dtcs.slldt.screen.StudentAdapter;
 import com.dtcs.slldt.screen.base.EContactFragment;
 import com.dtcs.slldt.screen.main.MainScreen;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice;
@@ -188,40 +180,6 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 		MainScreen mainFrag = new MainScreen();
 		mainFrag.setShowListStudent(true);
 		switchContent(mainFrag, true);
-	}
-
-	private void showListStudentDialog() {
-		final Dialog idPickerDialog = new Dialog(getActivity());
-		idPickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		idPickerDialog.setContentView(R.layout.dialog_idpicker);
-		idPickerDialog.setCanceledOnTouchOutside(false);
-		TextView tvTitle = (TextView) idPickerDialog.findViewById(R.id.tv_title);
-		ListView listStudent = (ListView) idPickerDialog.findViewById(R.id.lv_switch);
-		Button btnExit = (Button) idPickerDialog.findViewById(R.id.btn_exit);
-		String title = getResources().getString(R.string.lbl_select_slldt);
-		tvTitle.setText(title);
-		listStudent.setAdapter(new StudentAdapter(getActivity(), mListStudent));
-		listStudent.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				idPickerDialog.dismiss();
-				UserInfoStoreManager.getInstance().setListStudent(mListStudent);
-				UserInfoStoreManager.getInstance().setCurrentStudent(mListStudent.get(position));
-				gotoMainScreen();
-			}
-		});
-
-		btnExit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				setLoginState(false);
-				tvError.setText("");
-				idPickerDialog.dismiss();
-			}
-		});
-		idPickerDialog.show();
 	}
 
 	private void register() {

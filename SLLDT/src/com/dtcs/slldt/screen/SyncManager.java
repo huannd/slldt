@@ -46,102 +46,102 @@ public class SyncManager {
 		return INSTANCE;
 	}
 
-	/**
-	 * Sync data.
-	 * 
-	 * @param studentId
-	 *            the student id
-	 * @param listener
-	 *            the listener
-	 */
-	public void syncData(long studentId, ISyncListener listener) {
-		mStudentId = studentId;
-		mListener = listener;
-		resultRequest = new ResultModel();
-		resultRequest.setResultSuccess();
-		initCount(NUMBER_SYNC);
-		syncInbox();
-		syncNewSMS();
-		syncOutbox();
-	}
-
-	/**
-	 * Inits the count.
-	 * 
-	 * @param number
-	 *            the number
-	 */
-	private void initCount(int number) {
-		mCountRequest = new CountDownLatch(number);
-		if (mListener != null) {
-			mListener.syncStart();
-		}
-	}
-
-	/**
-	 * Count down.
-	 */
-	private void countDown() {
-		mCountRequest.countDown();
-		if (mCountRequest.getCount() <= 0 && mListener != null) {
-			mListener.syncComplete(resultRequest);
-		}
-	}
-
-	/**
-	 * Sync inbox.
-	 */
-	private void syncInbox() {
-		StudentModel studentModel = UserInfoStoreManager.getInstance().getCurrentStudent();
-		if (studentModel == null) {
-			resultRequest.strResult = null;
-			countDown();
-			return;
-		}
-		SMSGatewayWebservice.getListSmsBySudentId(mStudentId, new WebserviceTaskListener<ArrayList<SMSModel>>() {
-
-			@Override
-			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
-				if (ob != null && result != null) {
-					UserInfoStoreManager.getInstance().setListSMS(ob);
-				} else {
-					resultRequest.strResult = null;
-				}
-				countDown();
-			}
-		});
-	}
-
-	/**
-	 * Sync new sms.
-	 */
-	private void syncNewSMS() {
-		StudentModel studentModel = UserInfoStoreManager.getInstance().getCurrentStudent();
-		if (studentModel == null) {
-			resultRequest.strResult = null;
-			countDown();
-			return;
-		}
-		SMSGatewayWebservice.getTotalNewSMSByStudentId(mStudentId, new WebserviceTaskListener<TotalSMSModel>() {
-
-			@Override
-			public void onTaskComplete(TotalSMSModel ob, ResultModel result) {
-				if (ob != null && result != null) {
-					ob.count = 3;
-					UserInfoStoreManager.getInstance().setTotalSMSModel(ob);
-				} else {
-					resultRequest.strResult = null;
-				}
-				countDown();
-			}
-		});
-	}
-
-	/**
-	 * Sync outbox.
-	 */
-	private void syncOutbox() {
-		countDown();
-	}
+//	/**
+//	 * Sync data.
+//	 * 
+//	 * @param studentId
+//	 *            the student id
+//	 * @param listener
+//	 *            the listener
+//	 */
+//	public void syncData(long studentId, ISyncListener listener) {
+//		mStudentId = studentId;
+//		mListener = listener;
+//		resultRequest = new ResultModel();
+//		resultRequest.setResultSuccess();
+//		initCount(NUMBER_SYNC);
+//		syncInbox();
+//		syncNewSMS();
+//		syncOutbox();
+//	}
+//
+//	/**
+//	 * Inits the count.
+//	 * 
+//	 * @param number
+//	 *            the number
+//	 */
+//	private void initCount(int number) {
+//		mCountRequest = new CountDownLatch(number);
+//		if (mListener != null) {
+//			mListener.syncStart();
+//		}
+//	}
+//
+//	/**
+//	 * Count down.
+//	 */
+//	private void countDown() {
+//		mCountRequest.countDown();
+//		if (mCountRequest.getCount() <= 0 && mListener != null) {
+//			mListener.syncComplete(resultRequest);
+//		}
+//	}
+//
+//	/**
+//	 * Sync inbox.
+//	 */
+//	private void syncInbox() {
+//		StudentModel studentModel = UserInfoStoreManager.getInstance().getCurrentStudent();
+//		if (studentModel == null) {
+//			resultRequest.strResult = null;
+//			countDown();
+//			return;
+//		}
+//		SMSGatewayWebservice.getListSmsBySudentId(mStudentId, new WebserviceTaskListener<ArrayList<SMSModel>>() {
+//
+//			@Override
+//			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
+//				if (ob != null && result != null) {
+//					UserInfoStoreManager.getInstance().setListSMS(ob);
+//				} else {
+//					resultRequest.strResult = null;
+//				}
+//				countDown();
+//			}
+//		});
+//	}
+//
+//	/**
+//	 * Sync new sms.
+//	 */
+//	private void syncNewSMS() {
+//		StudentModel studentModel = UserInfoStoreManager.getInstance().getCurrentStudent();
+//		if (studentModel == null) {
+//			resultRequest.strResult = null;
+//			countDown();
+//			return;
+//		}
+//		SMSGatewayWebservice.getTotalNewSMSByStudentId(mStudentId, new WebserviceTaskListener<TotalSMSModel>() {
+//
+//			@Override
+//			public void onTaskComplete(TotalSMSModel ob, ResultModel result) {
+//				if (ob != null && result != null) {
+//					ob.count = 3;
+//					UserInfoStoreManager.getInstance().setTotalSMSModel(ob);
+//				} else {
+//					resultRequest.strResult = null;
+//				}
+//				countDown();
+//			}
+//		});
+//	}
+//
+//	/**
+//	 * Sync outbox.
+//	 */
+//	private void syncOutbox() {
+//		countDown();
+//	}
 
 }
