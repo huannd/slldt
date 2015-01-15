@@ -16,6 +16,12 @@ import com.dtcs.slldt.common.MyNotificationManager;
 public class GCMManagerMessage {
 	// FIXME: key get message is client guess:
 	public static final String GCM_MSG_KEY = "alert";
+	public static final String KEY_STUDENT_ID = "studentId";
+	public static final String KEY_COMMAND = "command";
+	public static final String KEY_PHONE = "So_Dien_Thoai";
+	
+	
+	
 	private static GCMManagerMessage instance = null;
 
 	/**
@@ -94,7 +100,7 @@ public class GCMManagerMessage {
 		}
 		// make notification when received message
 		MyNotificationManager notify = MyNotificationManager.getInstance();
-		notify.setMessage(pIntent.getStringExtra(GCM_MSG_KEY));
+		notify.setMessageAndKey(pIntent.getStringExtra(GCM_MSG_KEY), pIntent.getStringExtra(KEY_STUDENT_ID));
 		notify.showNotify(EBookContactApp.getAppContext());
 	}
 
