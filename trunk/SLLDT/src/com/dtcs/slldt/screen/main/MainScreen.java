@@ -207,7 +207,8 @@ public class MainScreen extends EContactFragment{
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 						idPickerDialog.dismiss();
-						UserInfoStoreManager.getInstance().setCurrentStudent(students.get(position));
+//						UserInfoStoreManager.getInstance().setCurrentStudent(students.get(position));
+						UserInfoStoreManager.getInstance().setCurrentStudentId(students.get(position).Ma_Hs);
 						switchData();
 					}
 				});

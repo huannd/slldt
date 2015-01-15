@@ -24,7 +24,7 @@ private ListView mListView;
 	}
 	
 	private void init(){
-		mListView.setAdapter(new SMSAdapter(getActivity(), UserInfoStoreManager.getInstance().getListSMS()));
+//		mListView.setAdapter(new SMSAdapter(getActivity(), UserInfoStoreManager.getInstance().getListSMS()));
 	}
 
 	@Override
