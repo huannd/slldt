@@ -14,5 +14,5 @@ public interface OnGCMNewMessageListener {
      * 
      * @param msg
      */
-    void onNewMessage(String msg);
+    void onNewMessage(long id);
 }

@@ -3,6 +3,7 @@ package com.dtcs.slldt.screen.inbox;
 import java.util.ArrayList;
 
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dtcs.slldt.common.UserInfoStoreManager;
+import com.dtcs.slldt.gcmservice.GCMManagerMessage;
+import com.dtcs.slldt.gcmservice.OnGCMNewMessageListener;
 import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.model.StudentModel;
@@ -26,22 +29,33 @@ public class InboxScreen extends EContactFragment {
 	private ArrayList<SMSModel> mDatas;
 	private SMSAdapter mAdapter;
 	private long currentStudentId = -1;
-	
+
 	@Override
-	protected View onCreateContentView(LayoutInflater inflater,
-			ViewGroup container) {
-		View v = LayoutInflater.from(getActivity()).inflate(R.layout.screen_inbox, container,false);
+	protected View onCreateContentView(LayoutInflater inflater, ViewGroup container) {
+		View v = LayoutInflater.from(getActivity()).inflate(R.layout.screen_inbox, container, false);
 		mListView = (ListView) v.findViewById(R.id.lv_inbox);
 		init();
-//		currentStudentId = UserInfoStoreManager.getInstance().getCurrentStudentId();
-//		getInboxDatas();
+		// currentStudentId =
+		// UserInfoStoreManager.getInstance().getCurrentStudentId();
+		// getInboxDatas();
+		GCMManagerMessage.getInstance().addDelegateListener(mGcmNewMessageListener);
 		return v;
 	}
-	
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		GCMManagerMessage.getInstance().removeDelegateListener(mGcmNewMessageListener);
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		showInbox();
+		long studentId = UserInfoStoreManager.getInstance().getCurrentStudentId();
+		if (currentStudentId != studentId) {
+			currentStudentId = studentId;
+			getInboxDatas();
+		}
 	}
 	
 	public void showInbox(){
@@ -52,18 +66,19 @@ public class InboxScreen extends EContactFragment {
 		}
 	}
 	
-	private void init(){
+	private void init() {
 		mDatas = new ArrayList<SMSModel>();
 		mAdapter = new SMSAdapter(getActivity(), mDatas);
 		mListView.setAdapter(mAdapter);
 	}
 
-	private void getInboxDatas(){
+	private void getInboxDatas() {
 		StudentModel model = UserInfoStoreManager.getInstance().getCurrentStudent();
-		if (model == null) return;
+		if (model == null)
+			return;
 		showLoading();
 		SMSGatewayWebservice.getListSmsBySudentId(model.Ma_Hs, new WebserviceTaskListener<ArrayList<SMSModel>>() {
-			
+
 			@Override
 			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
 				if (ob != null && result != null) {
@@ -72,13 +87,14 @@ public class InboxScreen extends EContactFragment {
 					mAdapter.notifyDataSetChanged();
 					Toast.makeText(getActivity(), "get data completed", Toast.LENGTH_SHORT).show();
 				} else {
-					Toast.makeText(getActivity(), "Lấy dữ liệu thất bại. Vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "Lấy dữ liệu thất bại. Vui lòng thử lại sau", Toast.LENGTH_SHORT)
+							.show();
 				}
 				hideLoading();
 			}
 		});
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return getResources().getString(R.string.lbl_sms_inbox);
@@ -95,4 +111,13 @@ public class InboxScreen extends EContactFragment {
 			switchContent(main, false);
 		}
 	}
+
+	private OnGCMNewMessageListener mGcmNewMessageListener = new OnGCMNewMessageListener() {
+
+		@Override
+		public void onNewMessage(long id) {
+			//TODO; get update
+			Log.i("INBOX", "has new message");
+		}
+	};
 }
