@@ -9,4 +9,6 @@ public interface ICommonDefine {
 	String KEY_SAVED_REGIS_ID = "store gcm register id";
 	
 	String DATE_FORMAT = "MM/dd/yyyy";
+	
+	String KEY_NOTIFICATION_FOR_STUDENT_ID = "KEY_NOTIFICATION_FOR_STUDENT_ID";
 }

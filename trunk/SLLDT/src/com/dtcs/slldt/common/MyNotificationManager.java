@@ -18,71 +18,73 @@ import com.edu.ebookcontact.R;
  */
 public class MyNotificationManager {
 
-    private static final String LOG_TAG = MyNotificationManager.class.getSimpleName();
+	private static final String LOG_TAG = MyNotificationManager.class.getSimpleName();
 
-    private static final int ICON = R.drawable.ic_launcher;
+	private static final int ICON = R.drawable.ic_launcher;
 
+	private int requestId = 0;
 
-    private static int requestId = 1101;
+	private static final long[] VIBRATE = new long[] { 1000, 2000, 3000 };
 
-    private static final long[] VIBRATE = new long[] {1000, 2000, 3000};
+	private String mMessage;
 
+	public String getMessage() {
+		return mMessage;
+	}
 
-    private String mMessage;
+	public void setMessageAndKey(String mMessage, String nId) {
+		if (nId != null && !nId.equalsIgnoreCase("")) {
+			this.requestId = Integer.parseInt(nId);
+		}
+		this.mMessage = mMessage;
+	}
 
-    public String getMessage() {
-        return mMessage;
-    }
+	private MyNotificationManager() {
+	}
 
-    public void setMessage(String mMessage) {
-        this.mMessage = mMessage;
-    }
+	public static MyNotificationManager getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
 
-    private MyNotificationManager() {}
+	public void showNotify(Context pContext) {
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(pContext);
+		builder.setSmallIcon(ICON);
+		builder.setContentTitle(pContext.getResources().getString(R.string.app_name));
+		String content = getMessage();
+		builder.setContentText(content);
+		builder.setAutoCancel(true);
 
-    public static MyNotificationManager getInstance() {
-        return SingletonHolder.INSTANCE;
-    }
+		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-    public void showNotify(Context pContext) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(pContext);
-        builder.setSmallIcon(ICON);
-        builder.setContentTitle(pContext.getResources().getString(R.string.app_name));
-        String content = getMessage();
-        builder.setContentText(content);
-        builder.setAutoCancel(true);
-        
-        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        
-        builder.setSound(uri);
-        
-        builder.setVibrate(VIBRATE);
+		builder.setSound(uri);
 
-        final Intent intent = new Intent(pContext, MainActivity.class);
-        intent.putExtra(GCMManagerMessage.GCM_MSG_KEY, content);
-        // intent.setAction(action)
+		builder.setVibrate(VIBRATE);
 
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(pContext, requestId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        builder.setContentIntent(resultPendingIntent);
+		final Intent intent = new Intent(pContext, MainActivity.class);
+		intent.putExtra(GCMManagerMessage.GCM_MSG_KEY, content);
+		intent.putExtra(ICommonDefine.KEY_NOTIFICATION_FOR_STUDENT_ID, requestId);
+		// intent.setAction(action)
 
-        NotificationManager notificationManager = this.getNotificationService(pContext);
-        notificationManager.notify(requestId, builder.build());
+		PendingIntent resultPendingIntent = PendingIntent.getActivity(pContext, requestId, intent,
+				PendingIntent.FLAG_CANCEL_CURRENT);
+		builder.setContentIntent(resultPendingIntent);
 
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-    }
+		NotificationManager notificationManager = this.getNotificationService(pContext);
+		notificationManager.notify(requestId, builder.build());
 
-    private NotificationManager getNotificationService(Context pContext) {
-        return (NotificationManager) pContext.getSystemService(Context.NOTIFICATION_SERVICE);
-    }
+		// try {
+		// Thread.sleep(500);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
+	}
 
+	private NotificationManager getNotificationService(Context pContext) {
+		return (NotificationManager) pContext.getSystemService(Context.NOTIFICATION_SERVICE);
+	}
 
-    private static class SingletonHolder {
-        public static final MyNotificationManager INSTANCE = new MyNotificationManager();
-    }
+	private static class SingletonHolder {
+		public static final MyNotificationManager INSTANCE = new MyNotificationManager();
+	}
 
 }
