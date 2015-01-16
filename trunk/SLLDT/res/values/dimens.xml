@@ -53,6 +53,7 @@
     <!-- dialog -->
     <dimen name="dialog_width">300dp</dimen>
     <dimen name="dialog_height">260dp</dimen>
+    <dimen name="dialog_send_sms_height">300dp</dimen>
     <dimen name="title_height">48dp</dimen>
     
 </resources>
