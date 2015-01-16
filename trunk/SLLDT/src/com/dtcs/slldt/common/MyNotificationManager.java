@@ -21,7 +21,7 @@ public class MyNotificationManager {
 
 	private static final String LOG_TAG = MyNotificationManager.class.getSimpleName();
 
-	private static final int ICON = R.drawable.ic_launcher;
+	private static final int ICON = R.drawable.inbox;
 
 	private int requestId = 0;
 
@@ -50,7 +50,7 @@ public class MyNotificationManager {
 	public void showNotify(Context pContext) {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(pContext);
 		builder.setSmallIcon(ICON);
-		builder.setContentTitle(pContext.getResources().getString(R.string.app_name));
+		builder.setContentTitle("Bạn nhận được tin nhắn mới.");
 		String content = getMessage();
 		builder.setContentText(content);
 		builder.setAutoCancel(true);
