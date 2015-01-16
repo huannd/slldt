@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -53,25 +56,58 @@ public class OutboxScreen extends EContactFragment {
 
 		@Override
 		public void onOkClick(Object obj) {
-			Toast.makeText(getActivity(), "abc:  "+ String.valueOf(obj), 1).show();
+			if (obj instanceof SMSModel) {
+				SMSModel model = ((SMSModel)obj);
+				showLoading("Đang gửi tin...");
+				SMSGatewayWebservice.sendSMS(model.SDT_Nhan, model.Noi_Dung, new WebserviceTaskListener<ResultModel>() {
+					
+					@Override
+					public void onTaskComplete(ResultModel ob, ResultModel result) {
+						hideLoading();
+						if (result!=null && result.getErrorCode() == 0) {
+							Toast.makeText(getActivity(), "Gửi tin nhắn thành công.", Toast.LENGTH_SHORT).show();
+						}else{
+							Toast.makeText(getActivity(), "Gửi tin thất bại.Vui lòng gửi lại sau", Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
+			}
 		}
 	};
 
 	private void init(){
-//		mListView.setAdapter(new SMSAdapter(getActivity(), UserInfoStoreManager.getInstance().getListSMS()));
+		mDatas = new ArrayList<SMSModel>();
+		mAdapter = new OutBoxAdapter(getActivity(), mDatas);
+		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent,
+					View view, int position, long id) {
+				Dialog dialogSMSContent = DialogCommons.getDialogShowSMS(getActivity(), mDatas.get(position).Noi_Dung, null);
+				dialogSMSContent.show();
+			}
+		});
+		sync();
+	}
+
+	@Override
+	public void sync() {
+		showLoading();
 		SMSGatewayWebservice.getListSmsSended(new WebserviceTaskListener<ArrayList<SMSModel>>() {
 			
 			@Override
 			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
 				if (ob!=null) {
-					mDatas = ob;
-					mAdapter = new OutBoxAdapter(getActivity(), mDatas);
-					mListView.setAdapter(mAdapter);
+					mDatas.clear();
+					mDatas.addAll(ob);
+					mAdapter.notifyDataSetChanged();
 				}
+				hideLoading();
 			}
 		});
 	}
-
+	
 	@Override
 	public String getTitle() {
 		return getResources().getString(R.string.lbl_sms_outbox);

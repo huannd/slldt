@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dtcs.slldt.screen.main.MainScreen;
+import com.dtcs.slldt.screen.outbox.OutboxScreen;
 import com.edu.ebookcontact.R;
 
 public class SimpleHeaderBar {
@@ -38,7 +39,8 @@ public class SimpleHeaderBar {
 				}
 			}
 		});
-		if (!(mFrag instanceof MainScreen)) {
+		if (!(mFrag instanceof MainScreen)
+				&& !(mFrag instanceof OutboxScreen)) {
 			root.findViewById(R.id.main_btn_switch).setVisibility(View.GONE);
 		}
 		if (mFrag instanceof IHeaderBar) {

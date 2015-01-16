@@ -2,14 +2,18 @@ package com.dtcs.slldt.screen.inbox;
 
 import java.util.ArrayList;
 
+import android.app.Dialog;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.dtcs.slldt.common.DialogCommons;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.gcmservice.GCMManagerMessage;
 import com.dtcs.slldt.gcmservice.OnGCMNewMessageListener;
@@ -70,6 +74,15 @@ public class InboxScreen extends EContactFragment {
 		mDatas = new ArrayList<SMSModel>();
 		mAdapter = new SMSAdapter(getActivity(), mDatas);
 		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Dialog dialogSMSContent = DialogCommons.getDialogShowSMS(getActivity(), mDatas.get(position).Noi_Dung, null);
+				dialogSMSContent.show();
+			}
+		});
 	}
 
 	private void getInboxDatas() {
@@ -85,7 +98,7 @@ public class InboxScreen extends EContactFragment {
 					mDatas.clear();
 					mDatas.addAll(ob);
 					mAdapter.notifyDataSetChanged();
-					Toast.makeText(getActivity(), "get data completed", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getActivity(), "get data completed", Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getActivity(), "Lấy dữ liệu thất bại. Vui lòng thử lại sau", Toast.LENGTH_SHORT)
 							.show();
