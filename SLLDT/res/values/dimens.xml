@@ -55,5 +55,10 @@
     <dimen name="dialog_height">260dp</dimen>
     <dimen name="dialog_send_sms_height">300dp</dimen>
     <dimen name="title_height">48dp</dimen>
+    <dimen name="radio_button_conner_radius">5dp</dimen>
+    
+    <dimen name="tab_marg_top">15dp</dimen>
+    <dimen name="width_tab">100dp</dimen>
+    <dimen name="height_tab">35dp</dimen>
     
 </resources>
