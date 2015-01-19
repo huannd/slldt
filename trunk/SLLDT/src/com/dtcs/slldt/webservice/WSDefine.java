@@ -110,4 +110,6 @@ public interface WSDefine {
 	public static final String PARAM_TARGET_USER_ID		= "targetUserId";
 	
 	public static final String PARAM_DEVICE_INFO		= "deviceInfo";
+	
+	public static final String PARAM_IS_CHAT			= "isChat";
 }

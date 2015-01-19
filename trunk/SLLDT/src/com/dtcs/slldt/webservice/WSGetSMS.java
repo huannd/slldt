@@ -625,6 +625,10 @@ public class WSGetSMS extends BaseSoapService {
 													targetUserId, 
 													String.class);
 		
+		PropertyInfo isChatInfo = createPropertyInfo(WSDefine.PARAM_IS_CHAT, 
+													true, 
+													boolean.class);
+		
 		PropertyInfo msgContentInfo = createPropertyInfo(WSDefine.PARAM_MESSAGE_CONTENT,
 													msgContent, 
 													String.class);
@@ -646,6 +650,7 @@ public class WSGetSMS extends BaseSoapService {
 		soapObject.addProperty(passInfo);
 		soapObject.addProperty(msgContentInfo);
 		soapObject.addProperty(targetUserIdInfo);
+		soapObject.addProperty(isChatInfo);
 		soapObject.addProperty(methodIdentifierInfo);
 		soapObject.addProperty(authenticationInfo);
 		soapObject.addProperty(checksumInfo);
@@ -689,6 +694,10 @@ public class WSGetSMS extends BaseSoapService {
 													SessionStore.getInstance().getPassword(), 
 													String.class);
 		
+		PropertyInfo isChatInfo = createPropertyInfo(WSDefine.PARAM_IS_CHAT, 
+													2, 
+													Integer.class);
+		
 		PropertyInfo phoneNumberInfo = createPropertyInfo(WSDefine.PARAM_PHONENUMBER, 
 													SessionStore.getInstance().getUserId(), 
 													String.class);
@@ -708,6 +717,7 @@ public class WSGetSMS extends BaseSoapService {
 																String.class);
 		soapObject.addProperty(userIdInfo);
 		soapObject.addProperty(passInfo);
+		soapObject.addProperty(isChatInfo);
 //		soapObject.addProperty(phoneNumberInfo);
 		soapObject.addProperty(methodIdentifierInfo);
 		soapObject.addProperty(authenticationInfo);

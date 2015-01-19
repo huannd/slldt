@@ -13,6 +13,7 @@ public class SMSModel {
 	public String Ngay_Duyet;
 	public String SDT_Gui;
 	public String SDT_Nhan;
+	public boolean Is_Chat;
 	
 	public Date getTime(){
 		try {
