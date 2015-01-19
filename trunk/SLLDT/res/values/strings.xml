@@ -16,7 +16,7 @@
     <string name="lbl_sms_inbox">Hòm Tin</string>
     <string name="lbl_sms_searching">Tra Cứu Tin</string>
     <string name="lbl_sms_contact">Sổ Liên Lạc</string>
-    <string name="lbl_sms_outbox">Tin Đã Gửi</string>
+    <string name="lbl_sms_outbox">Trò Chuyện</string>
     <string name="lbl_account_info">Thông Tin Tài Khoản</string>
     <string name="Taikhoan">Tài Khoản</string>
     <string name="SMS">NHẬN TIN QUA SMS</string>

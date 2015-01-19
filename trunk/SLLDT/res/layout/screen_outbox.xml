@@ -5,49 +5,83 @@
     android:background="#ffe0e0e0"
     android:orientation="vertical" >
 
+    <com.dtcs.slldt.widget.SegmentedGroup
+        android:id="@+id/segmentedGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/tab_marg_top"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rdAll"
+            android:layout_width="@dimen/width_tab"
+            android:layout_height="@dimen/height_tab"
+            android:gravity="center"
+            android:button="@null"
+            android:checked="true"
+            android:text="Tất cả" />
+
+        <RadioButton
+            android:id="@+id/rdInbox"
+             android:layout_width="@dimen/width_tab"
+            android:layout_height="@dimen/height_tab"
+            android:gravity="center"
+            android:button="@null"
+            android:text="Tin đã nhận" />
+
+        <RadioButton
+            android:id="@+id/rdOutbox"
+            android:layout_width="@dimen/width_tab"
+            android:layout_height="@dimen/height_tab"
+            android:gravity="center"
+            android:button="@null"
+            android:text="Tin đã gửi" />
+    </com.dtcs.slldt.widget.SegmentedGroup>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="3.0dip"
         android:gravity="center_vertical"
-        android:layout_marginTop="3.0dip" >
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="@dimen/sms_number_width"
             android:layout_height="wrap_content"
-            android:padding="@dimen/layout_margin_small"
             android:background="@color/A7C9D3"
             android:gravity="center"
+            android:padding="@dimen/layout_margin_small"
             android:text="STT"
-            android:textSize="@dimen/text_size_normal"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_normal" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/A7C9D3"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:layout_marginLeft="@dimen/layout_margin_small"
-            android:padding="@dimen/layout_margin_small"
+            android:layout_weight="1"
+            android:background="@color/A7C9D3"
             android:gravity="center"
             android:maxLines="3"
+            android:padding="@dimen/layout_margin_small"
             android:text="@string/sms_content"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_normal" />
-        
-        <ImageView 
+
+        <ImageView
             android:id="@+id/btnOutSMS"
             android:layout_width="@dimen/sms_compose_width"
             android:layout_height="@dimen/sms_compose_width"
             android:layout_marginLeft="@dimen/layout_margin_small"
             android:layout_marginRight="@dimen/layout_margin_normal"
-            android:src="@drawable/ic_compose"/>
+            android:src="@drawable/ic_compose" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_outbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
