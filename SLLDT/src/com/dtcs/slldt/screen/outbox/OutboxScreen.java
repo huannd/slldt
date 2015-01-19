@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dtcs.slldt.common.DialogCommons;
+import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.common.DialogCommons.OnDialogClickOkListener;
 import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.SMSModel;
@@ -30,6 +31,16 @@ public class OutboxScreen extends EContactFragment {
 	private Dialog dCreateSMS;
 	private OutBoxAdapter mAdapter;
 	private ArrayList<SMSModel> mDatas;
+	private ArrayList<SMSModel> mDataAlls;
+	private ArrayList<SMSModel> mDataSendeds;
+	private ArrayList<SMSModel> mDataReceiveds;
+	private ChatType currentChatType = ChatType.CHAT_ALL;
+	
+	public enum ChatType{
+		CHAT_ALL,
+		CHAT_SEND,
+		CHAT_RECEIVE
+	}
 	
 	@Override
 	protected View onCreateContentView(LayoutInflater inflater, ViewGroup container) {
@@ -77,6 +88,9 @@ public class OutboxScreen extends EContactFragment {
 
 	private void init(){
 		mDatas = new ArrayList<SMSModel>();
+		mDataAlls = new ArrayList<SMSModel>();
+		mDataReceiveds = new ArrayList<SMSModel>();
+		mDataSendeds = new ArrayList<SMSModel>();
 		mAdapter = new OutBoxAdapter(getActivity(), mDatas);
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -91,6 +105,43 @@ public class OutboxScreen extends EContactFragment {
 		sync();
 	}
 
+	private void filterDatas(ArrayList<SMSModel> datas){
+		if (datas.size()>0) {
+			mDataAlls.clear();
+			mDataReceiveds.clear();
+			mDataSendeds.clear();
+			String phoneNumber = UserInfoStoreManager.getInstance().getPhoneNumber();
+			for (SMSModel smsModel : datas) {
+				mDataAlls.add(smsModel);
+				if (smsModel.SDT_Gui != null && smsModel.SDT_Gui.equals(phoneNumber)) {
+					mDataSendeds.add(smsModel);
+				}
+				if (smsModel.SDT_Nhan != null && smsModel.SDT_Nhan.equals(phoneNumber)) {
+					mDataSendeds.add(smsModel);
+				}
+			}
+		}
+	}
+	
+	private void switchChat(){
+		mDatas.clear();
+		switch (currentChatType) {
+		case CHAT_ALL:
+			mDatas.addAll(mDataAlls);
+			break;
+		case CHAT_SEND:
+			mDatas.addAll(mDataSendeds);
+			break;
+		case CHAT_RECEIVE:
+			mDatas.addAll(mDataReceiveds);
+			break;
+		default:
+			mDatas.addAll(mDataAlls);
+			break;
+		}
+		mAdapter.notifyDataSetChanged();
+	}
+	
 	@Override
 	public void sync() {
 		showLoading();
@@ -99,9 +150,8 @@ public class OutboxScreen extends EContactFragment {
 			@Override
 			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
 				if (ob!=null) {
-					mDatas.clear();
-					mDatas.addAll(ob);
-					mAdapter.notifyDataSetChanged();
+					filterDatas(ob);
+					switchChat();
 				}
 				hideLoading();
 			}

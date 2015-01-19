@@ -42,6 +42,14 @@ public class BaseSoapService {
 		return info;
 	}
 	
+	public PropertyInfo createPropertyInfo(String name,boolean value,Class<?> type){
+		PropertyInfo info = new PropertyInfo();
+		info.setName(name);
+		info.setValue(value);
+		info.setType(type);
+		return info;
+	}
+	
 	/**
 	 * Creates the property info.
 	 *
