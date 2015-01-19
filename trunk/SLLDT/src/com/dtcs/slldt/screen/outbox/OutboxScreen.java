@@ -81,6 +81,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 						hideLoading();
 						if (result != null && result.getErrorCode() == 0) {
 							Toast.makeText(getActivity(), "Gửi tin nhắn thành công.", Toast.LENGTH_SHORT).show();
+							sync();
 						} else {
 							Toast.makeText(getActivity(), "Gửi tin thất bại.Vui lòng gửi lại sau", Toast.LENGTH_SHORT)
 									.show();
@@ -122,7 +123,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 					mDataSendeds.add(smsModel);
 				}
 				if (smsModel.SDT_Nhan != null && smsModel.SDT_Nhan.equals(phoneNumber)) {
-					mDataSendeds.add(smsModel);
+					mDataReceiveds.add(smsModel);
 				}
 			}
 		}
@@ -149,8 +150,21 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 
 	@Override
 	public void sync() {
+//		showLoading();
+//		SMSGatewayWebservice.getListSmsSended(new WebserviceTaskListener<ArrayList<SMSModel>>() {
+//
+//			@Override
+//			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
+//				if (ob != null) {
+//					filterDatas(ob);
+//					switchChat();
+//				}
+//				hideLoading();
+//			}
+//		});
+		
 		showLoading();
-		SMSGatewayWebservice.getListSmsSended(new WebserviceTaskListener<ArrayList<SMSModel>>() {
+		SMSGatewayWebservice.getListSmsChat(new WebserviceTaskListener<ArrayList<SMSModel>>() {
 
 			@Override
 			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
@@ -177,8 +191,14 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 		@Override
 		protected String getPhoneAtPosition(int pos) {
 			SMSModel model = getItem(pos);
-			if (model.SDT_Nhan != null && !model.SDT_Nhan.trim().equals("")) {
-				return "To: " + model.SDT_Nhan;
+			if (currentChatType == ChatType.CHAT_SEND) {
+				if (model.SDT_Nhan != null && !model.SDT_Nhan.trim().equals("")) {
+					return "To: " + model.SDT_Nhan;
+				}
+			}else if (currentChatType == ChatType.CHAT_RECEIVE) {
+				if (model.SDT_Gui != null && !model.SDT_Gui.trim().equals("")) {
+					return "From: " + model.SDT_Gui;
+				}
 			}
 			return "";
 		}

@@ -70,6 +70,8 @@ public interface WSDefine {
 	
 	public static final String METHOD_GET_LIST_SMS_SENDED				= "GetListSmsSended";
 	
+	public static final String METHOD_GET_LIST_SMS_CHAT					= "GetListSmsChat";
+	
 	//Param
 	/** The Constant PARAM_METHOD_IDENTIFIER. */
 	public static final String PARAM_METHOD_IDENTIFIER 	= "methodIdentifier";
