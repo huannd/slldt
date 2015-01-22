@@ -10,6 +10,7 @@ import com.dtcs.slldt.common.ICommonDefine;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.screen.inbox.InboxScreen;
 import com.dtcs.slldt.screen.login.LoginScreen;
+import com.dtcs.slldt.screen.outbox.OutboxScreen;
 
 public class MainActivity extends BaseFragmentActivity {
 
@@ -18,8 +19,14 @@ public class MainActivity extends BaseFragmentActivity {
 		super.onCreate(savedInstanceState);
 		Fragment cur = getCurrentFragment();
 		boolean isStartFromNotification = getIntent().getBooleanExtra(ICommonDefine.KEY_START_FROM_NOTIFICATION, false);
-		if (isStartFromNotification || (cur != null && !(cur instanceof InboxScreen))) {
-			switchContent(new InboxScreen(), false);
+		int sID = getIntent().getIntExtra(ICommonDefine.KEY_NOTIFICATION_FOR_STUDENT_ID, ICommonDefine.DEFAULT_ID);
+		if (isStartFromNotification || (cur != null && !(cur instanceof InboxScreen))
+				|| (cur != null && !(cur instanceof OutboxScreen))) {
+			if (sID != ICommonDefine.DEFAULT_ID) {
+				switchContent(new InboxScreen(), false);
+			} else {
+				switchContent(new OutboxScreen(), false);
+			}
 		} else {
 			switchContent(new LoginScreen(), false);
 		}
@@ -38,11 +45,13 @@ public class MainActivity extends BaseFragmentActivity {
 			Log.i("current ID", "id:  " + stID);
 		}
 		Fragment cur = getCurrentFragment();
-		if (cur != null && !(cur instanceof InboxScreen)) {
+		if (cur != null && !(cur instanceof InboxScreen) && stID != ICommonDefine.DEFAULT_ID) {
 			switchContent(new InboxScreen(), false);
-		} else if (cur instanceof InboxScreen) {
+		} else if (cur instanceof InboxScreen && stID != ICommonDefine.DEFAULT_ID) {
 			Toast.makeText(this, "goi request get inbox", Toast.LENGTH_SHORT).show();
-			((InboxScreen)cur).showInbox();
+			((InboxScreen) cur).showInbox();
+		} else if (cur != null && !(cur instanceof OutboxScreen) && stID == ICommonDefine.DEFAULT_ID) {
+			switchContent(new OutboxScreen(), false);
 		}
 	}
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.dtcs.slldt.EBookContactApp;
+import com.dtcs.slldt.common.ICommonDefine;
 import com.dtcs.slldt.common.MyNotificationManager;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 
@@ -85,9 +86,10 @@ public class GCMManagerMessage {
 			for (OnGCMNewMessageListener receiver : listDelegateOnNewMessage) {
 				int cur = (int) UserInfoStoreManager.getInstance().getCurrentStudentId();
 				String sId = pIntent.getStringExtra(KEY_STUDENT_ID);
+				int sIdNum = Integer.valueOf(sId);
 				if (sId != null && !sId.equalsIgnoreCase("") && !sId.equalsIgnoreCase(" ")) {
 					int idPush = Integer.valueOf(sId);
-					if (cur == idPush) {
+					if (cur == idPush || sIdNum == ICommonDefine.DEFAULT_ID) {
 						receiver.onNewMessage(Integer.valueOf(idPush));
 					}
 				}

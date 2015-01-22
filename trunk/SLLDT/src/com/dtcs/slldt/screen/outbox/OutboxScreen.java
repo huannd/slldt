@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,10 +20,13 @@ import android.widget.Toast;
 import com.dtcs.slldt.common.DialogCommons;
 import com.dtcs.slldt.common.DialogCommons.OnDialogClickOkListener;
 import com.dtcs.slldt.common.UserInfoStoreManager;
+import com.dtcs.slldt.gcmservice.GCMManagerMessage;
+import com.dtcs.slldt.gcmservice.OnGCMNewMessageListener;
 import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.SMSModel;
 import com.dtcs.slldt.screen.SMSAdapter;
 import com.dtcs.slldt.screen.base.EContactFragment;
+import com.dtcs.slldt.screen.main.MainScreen;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice.WebserviceTaskListener;
 import com.dtcs.slldt.widget.SegmentedGroup;
@@ -64,8 +69,23 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 		});
 		mListView = (ListView) v.findViewById(R.id.lv_outbox);
 		init();
+		GCMManagerMessage.getInstance().addDelegateListener(mGcmNewMessageListener);
 		return v;
 	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		GCMManagerMessage.getInstance().removeDelegateListener(mGcmNewMessageListener);
+	}
+
+	private OnGCMNewMessageListener mGcmNewMessageListener = new OnGCMNewMessageListener() {
+
+		@Override
+		public void onNewMessage(long id) {
+			Log.i("CHAT", "has new CHAT");
+		}
+	};
 
 	private OnDialogClickOkListener mDialogClickOkListener = new OnDialogClickOkListener() {
 
@@ -221,5 +241,17 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 			break;
 		}
 		switchChat();
+	}
+
+	@Override
+	public void onBackPress() {
+		FragmentManager fm = getActivity().getSupportFragmentManager();
+		if (fm.getBackStackEntryCount() > 1) {
+			super.onBackPress();
+		} else {
+			MainScreen main = new MainScreen();
+			main.setShowListStudent(false);
+			switchContent(main, false);
+		}
 	}
 }
