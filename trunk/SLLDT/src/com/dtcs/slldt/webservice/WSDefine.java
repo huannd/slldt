@@ -85,6 +85,8 @@ public interface WSDefine {
 	/** The Constant PARAM_PASSWORD. */
 	public static final String PARAM_PASSWORD 			= "password";
 	
+	public static final String PARAM_NEW_PASSWORD 			= "newPassword";
+	
 	/** The Constant PARAM_CHECKSUM. */
 	public static final String PARAM_CHECKSUM 			= "checkSum";
 	
