@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import com.dtcs.slldt.activity.MainActivity;
 import com.dtcs.slldt.gcmservice.GCMManagerMessage;
 import com.edu.ebookcontact.R;
-import com.google.android.gms.internal.in;
 
 /**
  * @author TND
@@ -23,7 +22,7 @@ public class MyNotificationManager {
 
 	private static final int ICON = R.drawable.inbox;
 
-	private int requestId = 0;
+	private int requestId = ICommonDefine.DEFAULT_ID;
 
 	private static final long[] VIBRATE = new long[] { 1000, 2000, 3000 };
 
@@ -34,7 +33,7 @@ public class MyNotificationManager {
 	}
 
 	public void setMessageAndKey(String mMessage, String nId) {
-		if (nId != null && !nId.equalsIgnoreCase("")) {
+		if (nId != null && !nId.equalsIgnoreCase("") && !nId.equalsIgnoreCase(" ")) {
 			this.requestId = Integer.valueOf(nId);
 		}
 		this.mMessage = mMessage;

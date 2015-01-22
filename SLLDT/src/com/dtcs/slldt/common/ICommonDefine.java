@@ -5,7 +5,7 @@ public interface ICommonDefine {
 	String SCREEN_MAIN = "main";
 	String SCREEN_INBOX = "inbox";
 	String SCREEN_SEARCH = "search";
-	
+	int DEFAULT_ID = -1;
 	String KEY_SAVED_REGIS_ID = "store gcm register id";
 	
 	String DATE_FORMAT = "MM/dd/yyyy";

@@ -92,7 +92,7 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 				public void onRegisterSuccess(final String pRegisId) {
 					Log.i("GCM: ", pRegisId);
 					String prefRegisId = SessionStore.getInstance().getRegistrationId();
-					if (prefRegisId!=null && pRegisId!=null && prefRegisId.equals(pRegisId)) return;
+//					if (prefRegisId!=null && pRegisId!=null && prefRegisId.equals(pRegisId)) return;
 					if (pRegisId != null) {
 						String deviceInfo = DeviceInfoStore.getInstance().getDeviceInfo();
 						int osType = DeviceInfoStore.getInstance().getOsType();
