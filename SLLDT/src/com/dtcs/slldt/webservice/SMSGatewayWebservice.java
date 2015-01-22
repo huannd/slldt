@@ -41,6 +41,24 @@ public class SMSGatewayWebservice {
 		}.execute();
 	}
 
+	public static void changePassword(final String newPass,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
+		new AsyncTask<Void, Void, ResultModel>() {
+
+			@Override
+			protected ResultModel doInBackground(Void... params) {
+				ResultModel result =  new WSLogin().changePassword(newPass);
+				return result;
+			}
+			
+			protected void onPostExecute(ResultModel result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(null,result);
+				}
+			};
+			
+		}.execute();
+	}
+	
 	/**
 	 * Gets the list student by phone number.
 	 *

@@ -78,6 +78,63 @@ public class DialogCommons {
 		});
 		return dialog;
 	}
+	
+	public static Dialog getDialogChangePassword(final Context ctx, final OnDialogClickOkListener eventOK){
+		final Dialog dialog = new Dialog(ctx);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		dialog.setContentView(R.layout.dialog_change_password);
+		final EditText edtCurrentPass = (EditText) dialog.findViewById(R.id.edt_current_pass);
+		final EditText edtNewPass = (EditText) dialog.findViewById(R.id.edt_new_pass);
+		final EditText edtConfirmNewPass = (EditText) dialog.findViewById(R.id.edt_confirm_new_pass);
+		dialog.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		dialog.findViewById(R.id.btnChange).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String currentPass = edtCurrentPass.getText().toString();
+				String newPass = edtNewPass.getText().toString();
+				String newPassConfirm = edtConfirmNewPass.getText().toString();
+				if (currentPass == null || currentPass.trim().equals("")) {
+					Toast.makeText(ctx, "Chưa nhập mật khẩu hiện tại.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				String password = SessionStore.getInstance().getPassword();
+				if (!currentPass.trim().equals(password)) {
+					Toast.makeText(ctx, "Mật khẩu hiện tại chưa đúng.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				if (newPass == null || newPass.trim().equals("")) {
+					Toast.makeText(ctx, "Chưa nhập mật khẩu mới.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				if (newPassConfirm == null || newPassConfirm.trim().equals("")) {
+					Toast.makeText(ctx, "Chưa xác nhận mật khẩu mới.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				if (!newPass.trim().equals(newPassConfirm.trim())) {
+					Toast.makeText(ctx, "Xác nhận mật khẩu không đúng.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				if (eventOK != null) {
+					eventOK.onOkClick(newPass);
+				}
+				dialog.dismiss();
+			}
+		});
+		return dialog;
+	}
+	
 
 	public interface OnDialogClickOkListener {
 		void onOkClick(Object obj);
