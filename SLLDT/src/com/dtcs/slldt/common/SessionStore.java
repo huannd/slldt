@@ -1,5 +1,7 @@
 package com.dtcs.slldt.common;
 
+import java.util.ArrayList;
+
 import com.dtcs.slldt.EBookContactApp;
 
 import android.content.Context;
@@ -56,5 +58,13 @@ public class SessionStore {
 	
 	public String getRegistrationId(){
 		return getSharedPreferences().getString(KEY_REGISTRATION_ID, null);
+	}
+	
+	public void setListStudentId(ArrayList<Long> listId){
+		
+	}
+	
+	public boolean isExistStudentId(long studentId){
+		return true;
 	}
 }
