@@ -170,19 +170,21 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 
 	@Override
 	public void sync() {
-//		showLoading();
-//		SMSGatewayWebservice.getListSmsSended(new WebserviceTaskListener<ArrayList<SMSModel>>() {
-//
-//			@Override
-//			public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel result) {
-//				if (ob != null) {
-//					filterDatas(ob);
-//					switchChat();
-//				}
-//				hideLoading();
-//			}
-//		});
-		
+		// showLoading();
+		// SMSGatewayWebservice.getListSmsSended(new
+		// WebserviceTaskListener<ArrayList<SMSModel>>() {
+		//
+		// @Override
+		// public void onTaskComplete(ArrayList<SMSModel> ob, ResultModel
+		// result) {
+		// if (ob != null) {
+		// filterDatas(ob);
+		// switchChat();
+		// }
+		// hideLoading();
+		// }
+		// });
+
 		showLoading();
 		SMSGatewayWebservice.getListSmsChat(new WebserviceTaskListener<ArrayList<SMSModel>>() {
 
@@ -215,7 +217,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 				if (model.SDT_Nhan != null && !model.SDT_Nhan.trim().equals("")) {
 					return "To: " + model.SDT_Nhan;
 				}
-			}else if (currentChatType == ChatType.CHAT_RECEIVE) {
+			} else if (currentChatType == ChatType.CHAT_RECEIVE) {
 				if (model.SDT_Gui != null && !model.SDT_Gui.trim().equals("")) {
 					return "From: " + model.SDT_Gui;
 				}
@@ -236,7 +238,6 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 		case R.id.rdOutbox:
 			currentChatType = ChatType.CHAT_SEND;
 			break;
-
 		default:
 			break;
 		}
@@ -250,7 +251,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 			super.onBackPress();
 		} else {
 			MainScreen main = new MainScreen();
-			main.setShowListStudent(false);
+			main.setShowListStudent(UserInfoStoreManager.getInstance().getCurrentStudentId() <= 0);
 			switchContent(main, false);
 		}
 	}
