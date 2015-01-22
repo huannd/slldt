@@ -103,7 +103,7 @@ public class WSLogin extends BaseSoapService{
 																String.class);
 		
 		PropertyInfo methodIdentifierInfo = createPropertyInfo(WSDefine.PARAM_METHOD_IDENTIFIER, 
-																WSDefine.METHOD_LOGIN, 
+																WSDefine.METHOD_CHANGE_PASSWORD, 
 																String.class);
 		
 		PropertyInfo authenticationInfo = createPropertyInfo(WSDefine.PARAM_AUTHENTICATION_KEY, 

@@ -206,6 +206,10 @@ public class MainScreen extends EContactFragment{
 	 */
 	private void showListStudentDialog(boolean isCancelAble) {
 		final ArrayList<StudentModel> students = UserInfoStoreManager.getInstance().getListStudent();
+		if (students == null) {
+			getListStudent();
+			return;
+		}
 		final Dialog idPickerDialog = new Dialog(getActivity());
 		idPickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		idPickerDialog.setContentView(R.layout.dialog_idpicker);
@@ -247,6 +251,21 @@ public class MainScreen extends EContactFragment{
 			}
 		});
 		idPickerDialog.show();
+	}
+	
+	private void getListStudent() {
+		showLoading();
+		SMSGatewayWebservice.getListStudentByPhoneNumber(new WebserviceTaskListener<ArrayList<StudentModel>>() {
+
+			@Override
+			public void onTaskComplete(ArrayList<StudentModel> ob, ResultModel result) {
+				if (ob != null && result != null) {
+					UserInfoStoreManager.getInstance().setListStudent(ob);
+					showListStudentDialog(false);
+				}
+				hideLoading();
+			}
+		});
 	}
 	
 	/* (non-Javadoc)
