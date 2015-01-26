@@ -1,6 +1,9 @@
 package com.dtcs.slldt.screen.outbox;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -23,7 +26,9 @@ import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.gcmservice.GCMManagerMessage;
 import com.dtcs.slldt.gcmservice.OnGCMNewMessageListener;
 import com.dtcs.slldt.model.ResultModel;
+import com.dtcs.slldt.model.SMSGroupModel;
 import com.dtcs.slldt.model.SMSModel;
+import com.dtcs.slldt.model.SMSModel.ChatType;
 import com.dtcs.slldt.screen.SMSAdapter;
 import com.dtcs.slldt.screen.base.EContactFragment;
 import com.dtcs.slldt.screen.main.MainScreen;
@@ -36,17 +41,15 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 
 	private ListView mListView;
 	private Dialog dCreateSMS;
-	private OutBoxAdapter mAdapter;
+	private SMSGroupAdapter mAdapter;
 	private ArrayList<SMSModel> mDatas;
 	private ArrayList<SMSModel> mDataAlls;
 	private ArrayList<SMSModel> mDataSendeds;
 	private ArrayList<SMSModel> mDataReceiveds;
+	private ArrayList<SMSGroupModel> mChatDatas;
+	
 	private ChatType currentChatType = ChatType.CHAT_ALL;
 	private SegmentedGroup vSegmentedGroup;
-
-	public enum ChatType {
-		CHAT_ALL, CHAT_SEND, CHAT_RECEIVE
-	}
 
 	@Override
 	protected View onCreateContentView(LayoutInflater inflater, ViewGroup container) {
@@ -67,6 +70,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 				// mDialogClickOkListener).show();
 			}
 		});
+		vSegmentedGroup.setVisibility(View.GONE);
 		mListView = (ListView) v.findViewById(R.id.lv_outbox);
 		init();
 		GCMManagerMessage.getInstance().addDelegateListener(mGcmNewMessageListener);
@@ -113,37 +117,69 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 	};
 
 	private void init() {
+		mChatDatas = new ArrayList<SMSGroupModel>();
 		mDatas = new ArrayList<SMSModel>();
 		mDataAlls = new ArrayList<SMSModel>();
 		mDataReceiveds = new ArrayList<SMSModel>();
 		mDataSendeds = new ArrayList<SMSModel>();
-		mAdapter = new OutBoxAdapter(getActivity(), mDatas);
+//		mAdapter = new OutBoxAdapter(getActivity(), mDatas);
+		mAdapter = new SMSGroupAdapter(getActivity(), mChatDatas);
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Dialog dialogSMSContent = DialogCommons.getDialogShowSMS(getActivity(), mDatas.get(position).Noi_Dung,
-						null);
-				dialogSMSContent.show();
+//				Dialog dialogSMSContent = DialogCommons.getDialogShowSMS(getActivity(), mChatDatas.get(position).getMessage(),
+//						null);
+//				dialogSMSContent.show();
+				SMSGroupModel groupSMSModel = mChatDatas.get(position);
+				/**show chat screen with list sms**/
 			}
 		});
 		sync();
 	}
 
 	private void filterDatas(ArrayList<SMSModel> datas) {
-		if (datas.size() > 0) {
-			mDataAlls.clear();
-			mDataReceiveds.clear();
-			mDataSendeds.clear();
-			String phoneNumber = UserInfoStoreManager.getInstance().getPhoneNumber();
+//		if (datas.size() > 0) {
+//			mDataAlls.clear();
+//			mDataReceiveds.clear();
+//			mDataSendeds.clear();
+//			Collections.reverse(datas);
+//			String phoneNumber = UserInfoStoreManager.getInstance().getPhoneNumber();
+//			for (SMSModel smsModel : datas) {
+//				mDataAlls.add(smsModel);
+//				if (smsModel.SDT_Gui != null && smsModel.SDT_Gui.equals(phoneNumber)) {
+//					mDataSendeds.add(smsModel);
+//				}
+//				if (smsModel.SDT_Nhan != null && smsModel.SDT_Nhan.equals(phoneNumber)) {
+//					mDataReceiveds.add(smsModel);
+//				}
+//			}
+//		}
+		
+		if (datas.size()>0) {
+			Collections.reverse(datas);
+			HashMap<String, ArrayList<SMSModel>> hashMapSMS = new HashMap<String, ArrayList<SMSModel>>();
+			ArrayList<String> listKey = new ArrayList<String>();
 			for (SMSModel smsModel : datas) {
-				mDataAlls.add(smsModel);
-				if (smsModel.SDT_Gui != null && smsModel.SDT_Gui.equals(phoneNumber)) {
-					mDataSendeds.add(smsModel);
+				String phoneKey = smsModel.getPhoneChat();
+				if (hashMapSMS.containsKey(phoneKey)) {
+					ArrayList<SMSModel> smsList = hashMapSMS.get(phoneKey);
+					smsList.add(smsModel);
+				}else{
+					listKey.add(phoneKey);
+					ArrayList<SMSModel> smsList = new ArrayList<SMSModel>();
+					smsList.add(smsModel);
+					hashMapSMS.put(phoneKey, smsList);
 				}
-				if (smsModel.SDT_Nhan != null && smsModel.SDT_Nhan.equals(phoneNumber)) {
-					mDataReceiveds.add(smsModel);
+			}
+
+			for (String key : listKey) {
+				ArrayList<SMSModel> list = hashMapSMS.get(key);
+				if (list != null) {
+					SMSGroupModel model = new SMSGroupModel();
+					model.datas = list;
+					mChatDatas.add(model);
 				}
 			}
 		}
@@ -225,7 +261,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 			return "";
 		}
 	}
-
+	
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		switch (checkedId) {

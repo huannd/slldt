@@ -20,9 +20,12 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dtcs.slldt.common.DialogCommons;
 import com.dtcs.slldt.common.SessionStore;
 import com.dtcs.slldt.common.UserInfoStoreManager;
+import com.dtcs.slldt.common.DialogCommons.OnDialogClickOkListener;
 import com.dtcs.slldt.model.MainDashboardItem;
 import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.StudentModel;
@@ -37,6 +40,7 @@ import com.dtcs.slldt.template.TemplateDefault;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice;
 import com.dtcs.slldt.webservice.SMSGatewayWebservice.WebserviceTaskListener;
 import com.edu.ebookcontact.R;
+import com.google.android.gms.internal.ms;
 
 /**
  * The Class MainScreen.
@@ -128,7 +132,8 @@ public class MainScreen extends EContactFragment{
 					showListStudentDialog(true);
 					break;
 				case ActionAccount:
-					switchContent(new AccountScreen(), true);
+//					switchContent(new AccountScreen(), true);
+					showAccountDialog();
 					break;
 				case ActionAbout:
 					break;
@@ -205,6 +210,61 @@ public class MainScreen extends EContactFragment{
 	 * @param isCancelAble the is cancel able
 	 */
 	private void showListStudentDialog(boolean isCancelAble) {
+		showAccountDialog();
+//		final ArrayList<StudentModel> students = UserInfoStoreManager.getInstance().getListStudent();
+//		if (students == null) {
+//			getListStudent();
+//			return;
+//		}
+//		final Dialog idPickerDialog = new Dialog(getActivity());
+//		idPickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		idPickerDialog.setContentView(R.layout.dialog_idpicker);
+//		idPickerDialog.setCanceledOnTouchOutside(false);
+//		TextView tvTitle = (TextView) idPickerDialog.findViewById(R.id.tv_title);
+//		final ListView listStudent = (ListView) idPickerDialog.findViewById(R.id.lv_switch);
+//		Button btnExit = (Button) idPickerDialog.findViewById(R.id.btn_exit);
+//		if (isCancelAble) {
+//			btnExit.setVisibility(View.VISIBLE);
+//		}else{
+//			btnExit.setVisibility(View.GONE);
+//		}
+//		String title = getResources().getString(R.string.lbl_select_slldt);
+//		tvTitle.setText(title);
+//		idPickerDialog.setOnShowListener(new OnShowListener() {
+//			
+//			@Override
+//			public void onShow(DialogInterface dialog) {
+//				listStudent.setAdapter(new StudentAdapter(getActivity(), students));
+//				listStudent.setOnItemClickListener(new OnItemClickListener() {
+//
+//					@Override
+//					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//						idPickerDialog.dismiss();
+////						UserInfoStoreManager.getInstance().setCurrentStudent(students.get(position));
+//						currentStudentId = students.get(position).Ma_Hs;
+//						UserInfoStoreManager.getInstance().setCurrentStudentId(currentStudentId);
+//						switchData();
+//					}
+//				});
+//			}
+//		});
+//
+//		btnExit.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				idPickerDialog.dismiss();
+//			}
+//		});
+//		idPickerDialog.show();
+	}
+	
+	/**
+	 * Show list student dialog.
+	 *
+	 * @param isCancelAble the is cancel able
+	 */
+	private void showAccountDialog() {
 		final ArrayList<StudentModel> students = UserInfoStoreManager.getInstance().getListStudent();
 		if (students == null) {
 			getListStudent();
@@ -212,24 +272,52 @@ public class MainScreen extends EContactFragment{
 		}
 		final Dialog idPickerDialog = new Dialog(getActivity());
 		idPickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		idPickerDialog.setContentView(R.layout.dialog_idpicker);
+		idPickerDialog.setContentView(R.layout.screen_account);
 		idPickerDialog.setCanceledOnTouchOutside(false);
-		TextView tvTitle = (TextView) idPickerDialog.findViewById(R.id.tv_title);
-		final ListView listStudent = (ListView) idPickerDialog.findViewById(R.id.lv_switch);
+		final TextView tvPhoneNumber = (TextView)idPickerDialog.findViewById(R.id.tv_phone_number);
+		final TextView tvChangePW = (TextView) idPickerDialog.findViewById(R.id.tv_change_pw);
+		final ListView mListView = (ListView) idPickerDialog.findViewById(R.id.lv_switch);
 		Button btnExit = (Button) idPickerDialog.findViewById(R.id.btn_exit);
-		if (isCancelAble) {
-			btnExit.setVisibility(View.VISIBLE);
-		}else{
-			btnExit.setVisibility(View.GONE);
-		}
-		String title = getResources().getString(R.string.lbl_select_slldt);
-		tvTitle.setText(title);
+		tvPhoneNumber.setText("Số điện thoại : "+UserInfoStoreManager.getInstance().getPhoneNumber());
+		tvChangePW.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				idPickerDialog.dismiss();
+				Dialog dialogChangePass = DialogCommons.getDialogChangePassword(getActivity(), new OnDialogClickOkListener() {
+					@Override
+					public void onOkClick(Object obj) {
+						if (currentStudentId == -1) {
+							currentStudentId = students.get(0).Ma_Hs;
+							UserInfoStoreManager.getInstance().setCurrentStudentId(currentStudentId);
+							switchData();
+						}
+						final String newPass = ((String)obj);
+						showLoading("Đang đổi mật khẩu...");
+						SMSGatewayWebservice.changePassword(newPass, new WebserviceTaskListener<ResultModel>() {
+							
+							@Override
+							public void onTaskComplete(ResultModel ob, ResultModel result) {
+								if (result != null && result.getErrorCode() == 0) {
+									Toast.makeText(getActivity(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+									SessionStore.getInstance().setPassword(newPass);
+								}else{
+									Toast.makeText(getActivity(), "Thay đổi mật khẩu thất bại. Vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+								}
+								hideLoading();
+							}
+						});
+					}
+				});
+				dialogChangePass.show();
+			}
+		});
 		idPickerDialog.setOnShowListener(new OnShowListener() {
 			
 			@Override
 			public void onShow(DialogInterface dialog) {
-				listStudent.setAdapter(new StudentAdapter(getActivity(), students));
-				listStudent.setOnItemClickListener(new OnItemClickListener() {
+				mListView.setAdapter(new StudentAdapter(getActivity(), students));
+				mListView.setOnItemClickListener(new OnItemClickListener() {
 
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -247,6 +335,11 @@ public class MainScreen extends EContactFragment{
 
 			@Override
 			public void onClick(View v) {
+				if (currentStudentId == -1) {
+					currentStudentId = students.get(0).Ma_Hs;
+					UserInfoStoreManager.getInstance().setCurrentStudentId(currentStudentId);
+					switchData();
+				}
 				idPickerDialog.dismiss();
 			}
 		});

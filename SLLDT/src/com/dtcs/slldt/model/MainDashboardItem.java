@@ -48,9 +48,9 @@ public class MainDashboardItem {
 				EBookContactApp.getAppContext().getResources().getString(R.string.lbl_sms_outbox) , 
 				DashboardAction.ActionOutbox);
 		
-		MainDashboardItem contactBookItem = new MainDashboardItem(R.drawable.tracuu,
-				EBookContactApp.getAppContext().getResources().getString(R.string.lbl_sms_contact) , 
-				DashboardAction.ActionContactBook);
+//		MainDashboardItem contactBookItem = new MainDashboardItem(R.drawable.tracuu,
+//				EBookContactApp.getAppContext().getResources().getString(R.string.lbl_sms_contact) , 
+//				DashboardAction.ActionContactBook);
 		
 		MainDashboardItem accountItem = new MainDashboardItem(R.drawable.taikhoan,
 				EBookContactApp.getAppContext().getResources().getString(R.string.Taikhoan) , 
@@ -63,7 +63,7 @@ public class MainDashboardItem {
 		listDashboard.add(inboxItem);
 		listDashboard.add(searchSmsItem);
 		listDashboard.add(outboxItem);
-		listDashboard.add(contactBookItem);
+//		listDashboard.add(contactBookItem);
 		listDashboard.add(accountItem);
 		listDashboard.add(aboutItem);
 		return listDashboard;

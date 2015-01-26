@@ -1,21 +1,24 @@
 package com.dtcs.slldt.screen.searching;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 
+import com.dtcs.slldt.common.DialogCommons;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.SMSModel;
@@ -54,6 +57,15 @@ public class SearchingScreen extends EContactFragment implements OnClickListener
 		mDatas = new ArrayList<SMSModel>();
 		mAdapter = new SMSAdapter(getActivity(), mDatas);
 		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Dialog dialogSMSContent = DialogCommons.getDialogShowSMS(getActivity(), mDatas.get(position).Noi_Dung, null);
+				dialogSMSContent.show();
+			}
+		});
 	}
 
 	@Override
