@@ -30,9 +30,9 @@ public class StudentAdapter extends BaseListAdapter<StudentModel>{
 		TextView txtSchool = ViewHolder.get(convertView,R.id.tv_student_school);
 		StudentModel model = getItem(position);
 		if (model!=null) {
-			txtName.setText(Html.fromHtml("<i><b> Họ tên: </i></b>" + model.Hoten_HocSinh));
-			txtClass.setText(Html.fromHtml("<i><b> Họ tên: </i></b>" + model.Ten_Lop));
-			txtSchool.setText(Html.fromHtml("<i><b> Họ tên: </i></b>" + model.Ten_Truong));
+			txtName.setText(Html.fromHtml("Họ tên: <b>" + model.Hoten_HocSinh+"</b>"));
+			txtClass.setText(Html.fromHtml("Lớp : <b>" + model.Ten_Lop+"</b>"));
+			txtSchool.setText(Html.fromHtml("Trường : <b>" + model.Ten_Truong+"</b>"));
 		}
 		return convertView;
 	}

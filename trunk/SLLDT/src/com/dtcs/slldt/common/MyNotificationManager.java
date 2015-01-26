@@ -20,7 +20,7 @@ public class MyNotificationManager {
 
 	private static final String LOG_TAG = MyNotificationManager.class.getSimpleName();
 
-	private static final int ICON = R.drawable.inbox;
+	private static final int ICON = R.drawable.ic_launcher;
 
 	private int requestId = ICommonDefine.DEFAULT_ID;
 
