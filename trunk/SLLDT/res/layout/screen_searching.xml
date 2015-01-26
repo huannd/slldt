@@ -81,6 +81,8 @@
     <ListView
         android:id="@+id/lv_searching"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" 
+        android:dividerHeight="0.5dp"
+        android:divider="@android:color/darker_gray"/>
 
 </LinearLayout>
