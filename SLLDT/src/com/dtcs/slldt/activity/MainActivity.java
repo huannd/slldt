@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.dtcs.slldt.common.ICommonDefine;
 import com.dtcs.slldt.common.UserInfoStoreManager;
+import com.dtcs.slldt.common.database.DatabaseQueryController;
+import com.dtcs.slldt.common.database.MyDatabaseManager;
+import com.dtcs.slldt.model.ContactModel;
 import com.dtcs.slldt.screen.inbox.InboxScreen;
 import com.dtcs.slldt.screen.login.LoginScreen;
 import com.dtcs.slldt.screen.outbox.OutboxScreen;
@@ -54,4 +57,5 @@ public class MainActivity extends BaseFragmentActivity {
 			switchContent(new OutboxScreen(), false);
 		}
 	}
+
 }

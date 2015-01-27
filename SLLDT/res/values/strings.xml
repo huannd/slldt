@@ -31,4 +31,5 @@
     
     <string name="title_out_sms">Write SMS</string>
     <string name="title_in_sms">SMS</string>
+    <string name="main_empty_list">No SMS!</string>
 </resources>

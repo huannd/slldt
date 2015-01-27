@@ -134,6 +134,9 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 //				dialogSMSContent.show();
 				SMSGroupModel groupSMSModel = mChatDatas.get(position);
 				/**show chat screen with list sms**/
+				ChatScreen cs = new ChatScreen();
+				cs.setGroupSMSModel(groupSMSModel);
+				switchContent(cs, true);
 			}
 		});
 		sync();
