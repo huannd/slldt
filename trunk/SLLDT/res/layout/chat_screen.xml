@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/listViewBg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#7EA309"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/titleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:text="Your name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/phoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_weight="1"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:text="012345678"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_write_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/message_bar" >
+
+        <EditText
+            android:id="@+id/text"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="5sp"
+            android:layout_weight="1"
+            android:background="@drawable/message_field"
+            android:hint="Write here"
+            android:paddingLeft="11sp"
+            android:textColor="@color/textFieldColor" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5sp"
+            android:background="@drawable/send_button"
+            android:onClick="sendMessage"
+            android:paddingBottom="5sp"
+            android:paddingLeft="15sp"
+            android:paddingRight="15sp"
+            android:paddingTop="5sp"
+            android:text="Send"
+            android:textColor="#FFF" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvChat"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_write_bar"
+        android:cacheColorHint="#00000000"
+        android:divider="#00000000"
+        android:listSelector="#00000000" >
+    </ListView>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone"
+        android:layout_above="@id/bottom_write_bar"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/main_empty_list" />
+
+</RelativeLayout>
