@@ -70,7 +70,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 				// mDialogClickOkListener).show();
 			}
 		});
-		vSegmentedGroup.setVisibility(View.GONE);
+//		vSegmentedGroup.setVisibility(View.GONE);
 		mListView = (ListView) v.findViewById(R.id.lv_outbox);
 		init();
 		GCMManagerMessage.getInstance().addDelegateListener(mGcmNewMessageListener);

@@ -31,11 +31,17 @@ public class ChatAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if (mMessages == null || mMessages.size() == 0){
+			return 0;
+		}
 		return mMessages.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
+		if (mMessages == null || mMessages.size() == 0){
+			return null;
+		}
 		return mMessages.get(position);
 	}
 

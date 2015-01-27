@@ -34,6 +34,7 @@ import com.dtcs.slldt.screen.account.AccountScreen;
 import com.dtcs.slldt.screen.base.EContactFragment;
 import com.dtcs.slldt.screen.inbox.InboxScreen;
 import com.dtcs.slldt.screen.login.LoginScreen;
+import com.dtcs.slldt.screen.outbox.ContactScreen;
 import com.dtcs.slldt.screen.outbox.OutboxScreen;
 import com.dtcs.slldt.screen.searching.SearchingScreen;
 import com.dtcs.slldt.template.TemplateDefault;
@@ -126,7 +127,8 @@ public class MainScreen extends EContactFragment{
 					switchContent(new SearchingScreen(), true);
 					break;
 				case ActionOutbox:
-					switchContent(new OutboxScreen(), true);
+					switchContent(new ContactScreen(), true);
+//					switchContent(new OutboxScreen(), true);
 					break;
 				case ActionContactBook:
 					showListStudentDialog(true);
