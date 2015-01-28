@@ -1,6 +1,7 @@
 package com.dtcs.slldt.screen.header;
 
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,7 +46,7 @@ public class SimpleHeaderBar {
 		}
 		if (mFrag instanceof IHeaderBar) {
 			TextView tvTitle = (TextView)root.findViewById(R.id.title);
-			tvTitle.setText(((IHeaderBar)mFrag).getTitle());
+			tvTitle.setText(Html.fromHtml(((IHeaderBar)mFrag).getTitle()));
 		}
 		return null;
 	}
