@@ -9,7 +9,7 @@ import com.dtcs.slldt.common.UserInfoStoreManager;
 public class SMSModel {
 
 	public enum ChatType {
-		CHAT_ALL, CHAT_SEND, CHAT_RECEIVE
+		CHAT_ALL, CHAT_SEND, CHAT_RECEIVE, CONTACT
 	}
 	
 	public SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

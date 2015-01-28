@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dtcs.slldt.model.ContactModel;
 import com.dtcs.slldt.model.SMSModel;
 import com.edu.ebookcontact.R;
 
@@ -78,8 +79,8 @@ public class DialogCommons {
 		});
 		return dialog;
 	}
-	
-	public static Dialog getDialogChangePassword(final Context ctx, final OnDialogClickOkListener eventOK){
+
+	public static Dialog getDialogChangePassword(final Context ctx, final OnDialogClickOkListener eventOK) {
 		final Dialog dialog = new Dialog(ctx);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -110,22 +111,22 @@ public class DialogCommons {
 					Toast.makeText(ctx, "Mật khẩu hiện tại chưa đúng.", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				
+
 				if (newPass == null || newPass.trim().equals("")) {
 					Toast.makeText(ctx, "Chưa nhập mật khẩu mới.", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				
+
 				if (newPassConfirm == null || newPassConfirm.trim().equals("")) {
 					Toast.makeText(ctx, "Chưa xác nhận mật khẩu mới.", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				
+
 				if (!newPass.trim().equals(newPassConfirm.trim())) {
 					Toast.makeText(ctx, "Xác nhận mật khẩu không đúng.", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				
+
 				if (eventOK != null) {
 					eventOK.onOkClick(newPass);
 				}
@@ -134,7 +135,49 @@ public class DialogCommons {
 		});
 		return dialog;
 	}
-	
+
+	public static Dialog getDialogAddContact(final Context ctx, final OnDialogClickOkListener eventOK) {
+		final Dialog dialog = new Dialog(ctx);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		dialog.setContentView(R.layout.add_contact);
+		final EditText edtName = (EditText) dialog.findViewById(R.id.edtContactName);
+		final EditText edtPhone = (EditText) dialog.findViewById(R.id.edtPhone);
+		final EditText edtDes = (EditText) dialog.findViewById(R.id.edtDes);
+		dialog.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		dialog.findViewById(R.id.btnAdd).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String phone = edtPhone.getText().toString();
+				String name = edtName.getText().toString();
+				String des = edtDes.getText().toString();
+				if (name == null || name.trim().equals("")) {
+					Toast.makeText(ctx, "Hãy nhập Tên danh bạ.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (phone == null || phone.trim().equals("")) {
+					Toast.makeText(ctx, "Hãy nhập số điện thoại.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (eventOK != null) {
+					ContactModel model = new ContactModel();
+					model.setPhoneNum(phone);
+					model.setName(name);
+					model.setDescriptions(des);
+					eventOK.onOkClick(model);
+				}
+				dialog.dismiss();
+			}
+		});
+		return dialog;
+	}
 
 	public interface OnDialogClickOkListener {
 		void onOkClick(Object obj);

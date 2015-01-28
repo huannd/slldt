@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dialog_send_sms_height"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/dTitle"
+        style="@style/title_dialog"
+        android:layout_width="@dimen/dialog_width"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Thêm Danh bạ" />
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="@dimen/dialog_width"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin_small"
+            android:layout_marginRight="@dimen/layout_margin_small"
+            android:layout_marginTop="@dimen/layout_margin_normal"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="*Tên:" />
+
+            <EditText
+                android:id="@+id/edtContactName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="left|center_vertical"
+                android:hint="Tên danh bạ"
+                android:paddingLeft="@dimen/layout_margin_small" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin_small"
+            android:layout_marginRight="@dimen/layout_margin_small"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="*Phone: " />
+
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="left|center_vertical"
+                android:hint="Số điện thoại"
+                android:inputType="phone"
+                android:paddingLeft="@dimen/layout_margin_small" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edtDes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/layout_margin_small"
+            android:layout_marginRight="@dimen/layout_margin_small"
+            android:layout_weight="1"
+            android:background="@drawable/bg_dialog"
+            android:gravity="top"
+            android:hint="Thông tin khác"
+            android:padding="6dp"
+            android:scrollbars="vertical"
+            android:textColor="#000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/dialog_width"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/content"
+        android:layout_centerHorizontal="true"
+        android:background="#EEEEEE"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Đóng" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Lưu lại" />
+    </LinearLayout>
+
+</RelativeLayout>

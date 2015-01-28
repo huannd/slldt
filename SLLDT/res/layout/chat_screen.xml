@@ -40,7 +40,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/bottom_write_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -48,29 +48,36 @@
         android:background="@drawable/message_bar" >
 
         <EditText
-            android:id="@+id/text"
+            android:id="@+id/edtSMS"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_margin="5sp"
-            android:layout_weight="1"
+            android:layout_toLeftOf="@+id/send"
             android:background="@drawable/message_field"
             android:hint="Write here"
-            android:paddingLeft="11sp"
+            android:maxLines="5"
+            android:paddingBottom="5sp"
+            android:paddingLeft="12sp"
+            android:paddingRight="12sp"
+            android:paddingTop="5sp"
             android:textColor="@color/textFieldColor" />
 
         <Button
+            android:id="@+id/send"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_margin="5sp"
             android:background="@drawable/send_button"
-            android:onClick="sendMessage"
             android:paddingBottom="5sp"
             android:paddingLeft="15sp"
             android:paddingRight="15sp"
             android:paddingTop="5sp"
             android:text="Send"
             android:textColor="#FFF" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/lvChat"
@@ -86,10 +93,10 @@
         android:id="@android:id/empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone"
         android:layout_above="@id/bottom_write_bar"
         android:layout_alignParentTop="true"
         android:gravity="center_vertical|center_horizontal"
-        android:text="@string/main_empty_list" />
+        android:text="@string/main_empty_list"
+        android:visibility="gone" />
 
 </RelativeLayout>

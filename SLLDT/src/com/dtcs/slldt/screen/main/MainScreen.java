@@ -127,8 +127,8 @@ public class MainScreen extends EContactFragment{
 					switchContent(new SearchingScreen(), true);
 					break;
 				case ActionOutbox:
-					switchContent(new ContactScreen(), true);
-//					switchContent(new OutboxScreen(), true);
+//					switchContent(new ContactScreen(), true);
+					switchContent(new OutboxScreen(), true);
 					break;
 				case ActionContactBook:
 					showListStudentDialog(true);
