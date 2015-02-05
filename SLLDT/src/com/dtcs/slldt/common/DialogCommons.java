@@ -1,5 +1,7 @@
 package com.dtcs.slldt.common;
 
+import java.util.ArrayList;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -7,12 +9,18 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dtcs.slldt.common.database.DatabaseQueryController;
+import com.dtcs.slldt.common.database.MyDatabaseManager;
 import com.dtcs.slldt.model.ContactModel;
 import com.dtcs.slldt.model.SMSModel;
+import com.dtcs.slldt.screen.outbox.ContactAdapter;
 import com.edu.ebookcontact.R;
 
 public class DialogCommons {
@@ -176,6 +184,65 @@ public class DialogCommons {
 				dialog.dismiss();
 			}
 		});
+		return dialog;
+	}
+
+	public static Dialog getDialogContact(final Context ctx, final OnDialogClickOkListener eventOK) {
+		final Dialog dialog = new Dialog(ctx);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		dialog.setContentView(R.layout.contact_dialog);
+		final ListView lv = (ListView) dialog.findViewById(R.id.lvContactDialog);
+		dialog.findViewById(R.id.btnCloseContact).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+
+		final ArrayList<ContactModel> lstContacts = (ArrayList<ContactModel>) DatabaseQueryController.getInstance()
+				.getContactList(MyDatabaseManager.getInstance(ctx));
+		if (lstContacts != null || lstContacts.size() == 0) {
+			ContactAdapter mContactAdapter = new ContactAdapter(ctx, lstContacts);
+			lv.setAdapter(mContactAdapter);
+		}
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (eventOK != null){
+					eventOK.onOkClick(lstContacts.get(position));
+				}
+				dialog.dismiss();
+			}
+		});
+
+		// .setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// String phone = edtPhone.getText().toString();
+		// String content = edtSMS.getText().toString();
+		// if (phone == null || phone.trim().equals("")) {
+		// Toast.makeText(ctx, "Hãy nhập số điện thoại.",
+		// Toast.LENGTH_SHORT).show();
+		// return;
+		// }
+		// if (content == null || content.trim().equals("")) {
+		// Toast.makeText(ctx, "Hãy nhập nội dung tin nhắn.",
+		// Toast.LENGTH_SHORT).show();
+		// return;
+		// }
+		// if (eventOK != null) {
+		// SMSModel model = new SMSModel();
+		// model.SDT_Nhan = phone;
+		// model.Noi_Dung = content;
+		// eventOK.onOkClick(model);
+		// }
+		// dialog.dismiss();
+		// }
+		// });
 		return dialog;
 	}
 

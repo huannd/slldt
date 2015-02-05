@@ -7,7 +7,7 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="4dp"  android:layout_toRightOf="@+id/stt"
         android:layout_toLeftOf="@+id/icChat"
         android:text="ten cua A"
         android:textSize="20sp" />
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="4dp"  android:layout_toRightOf="@+id/stt"
         android:layout_marginLeft="4dp"
         android:layout_toLeftOf="@+id/icChat"
         android:text="7572402"
@@ -31,5 +31,17 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="15dp"
         android:src="@drawable/chat35" />
+
+    <TextView
+        android:id="@+id/stt"
+        android:layout_width="@dimen/sms_number_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="4dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_marginLeft="4dp"
+        android:text="1"
+        android:textSize="16sp" />
 
 </RelativeLayout>

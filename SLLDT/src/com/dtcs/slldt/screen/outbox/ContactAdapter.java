@@ -49,19 +49,21 @@ public class ContactAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(mContext).inflate(R.layout.contact_item, parent, false);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
+			holder.stt = (TextView) convertView.findViewById(R.id.stt);
 			holder.phone = (TextView) convertView.findViewById(R.id.phone);
 			convertView.setTag(holder);
 		} else
 			holder = (ViewHolder) convertView.getTag();
 
 		holder.name.setText(ct.getName());
+		holder.stt.setText("" + (position + 1));
 		holder.phone.setText(ct.getPhoneNum());
 		return convertView;
 	}
 
 	private static class ViewHolder {
 		TextView name;
-		TextView phone;
+		TextView phone, stt;
 	}
 
 	@Override

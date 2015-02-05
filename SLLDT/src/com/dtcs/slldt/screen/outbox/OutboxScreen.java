@@ -7,7 +7,6 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.app.Dialog;
 import android.support.v4.app.FragmentManager;
-import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -76,12 +74,10 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 			@Override
 			public void onClick(View v) {
 				if (currentChatType == ChatType.CHAT_ALL) {
-					if (dCreateSMS == null) {
-						dCreateSMS = DialogCommons.getDialogSent(getActivity(), mDialogClickOkListener);
-					}
-					dCreateSMS.show();
+					ChatScreen cs = new ChatScreen();
+					switchContent(cs, true);
 				} else if (currentChatType == ChatType.CONTACT) {
-					if (dAddContact == null){
+					if (dAddContact == null) {
 						dAddContact = DialogCommons.getDialogAddContact(getActivity(), mDialogClickOkListener);
 					}
 					dAddContact.show();
@@ -163,7 +159,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 				SMSGroupModel groupSMSModel = mChatDatas.get(position);
 				/** show chat screen with list sms **/
 				ChatScreen cs = new ChatScreen();
-//				cs.setGroupSMSModel(groupSMSModel);
+				// cs.setGroupSMSModel(groupSMSModel);
 				cs.setGuestPhoneNumber(groupSMSModel.getPhoneChat());
 				switchContent(cs, true);
 			}
@@ -232,7 +228,7 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 					SMSGroupModel groupSMSModel = mChatDatas.get(position);
 					/** show chat screen with list sms **/
 					ChatScreen cs = new ChatScreen();
-//					cs.setGroupSMSModel(groupSMSModel);
+					// cs.setGroupSMSModel(groupSMSModel);
 					cs.setGuestPhoneNumber(groupSMSModel.getPhoneChat());
 					switchContent(cs, true);
 				}
@@ -267,21 +263,22 @@ public class OutboxScreen extends EContactFragment implements OnCheckedChangeLis
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				ContactModel ctm = lstContacts.get(position);
-//				SMSGroupModel groupSMSModel = null;
-//				if (mChatDatas != null) {
-//					for (int i = 0; i < mChatDatas.size(); i++) {
-//						SMSGroupModel obj = mChatDatas.get(i);
-//						if (obj.getPhoneChat().equals(ctm.getPhoneNum())
-//								|| PhoneNumberUtils.compare(obj.getPhoneChat(), ctm.getPhoneNum())) {
-//							groupSMSModel = obj;
-//							break;
-//						}
-//					}
-//				}
+				// SMSGroupModel groupSMSModel = null;
+				// if (mChatDatas != null) {
+				// for (int i = 0; i < mChatDatas.size(); i++) {
+				// SMSGroupModel obj = mChatDatas.get(i);
+				// if (obj.getPhoneChat().equals(ctm.getPhoneNum())
+				// || PhoneNumberUtils.compare(obj.getPhoneChat(),
+				// ctm.getPhoneNum())) {
+				// groupSMSModel = obj;
+				// break;
+				// }
+				// }
+				// }
 
 				/** show chat screen with list sms **/
 				ChatScreen cs = new ChatScreen();
-//				cs.setGroupSMSModel(groupSMSModel);
+				// cs.setGroupSMSModel(groupSMSModel);
 				cs.setGuestPhoneNumber(ctm.getPhoneNum());
 				switchContent(cs, true);
 			}

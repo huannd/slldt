@@ -4,42 +4,32 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/background"
+    <TextView
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="3sp"
+        android:layout_marginRight="3sp"
+        android:shadowColor="@color/textShadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:text="20:25"
+        android:textColor="#555555"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginBottom="3sp"
         android:background="@drawable/speech_bubble_green"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/message_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5sp"
-            android:shadowColor="@color/textShadow"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:text="Medium Text"
-            android:textColor="@color/textColor"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3sp"
-            android:layout_marginLeft="3sp"
-            android:layout_marginRight="3sp"
-            android:shadowColor="@color/textShadow"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:text="20:25"
-            android:textColor="@color/textColor"
-            android:textSize="14sp" />
-    </LinearLayout>
+        android:shadowColor="@color/textShadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:text="Medium Text"
+        android:textColor="@color/textColor"
+        android:textSize="20sp" />
 
 </LinearLayout>
