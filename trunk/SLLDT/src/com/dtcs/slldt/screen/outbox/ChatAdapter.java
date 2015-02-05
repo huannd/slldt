@@ -31,7 +31,7 @@ public class ChatAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		if (mMessages == null || mMessages.size() == 0){
+		if (mMessages == null || mMessages.size() == 0) {
 			return 0;
 		}
 		return mMessages.size();
@@ -39,7 +39,7 @@ public class ChatAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		if (mMessages == null || mMessages.size() == 0){
+		if (mMessages == null || mMessages.size() == 0) {
 			return null;
 		}
 		return mMessages.get(position);
@@ -55,7 +55,6 @@ public class ChatAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(mContext).inflate(R.layout.item_chat, parent, false);
 			holder.message = (TextView) convertView.findViewById(R.id.message_text);
-			holder.background = (LinearLayout) convertView.findViewById(R.id.background);
 			holder.time = (TextView) convertView.findViewById(R.id.time);
 			convertView.setTag(holder);
 		} else
@@ -67,19 +66,19 @@ public class ChatAdapter extends BaseAdapter {
 		LayoutParams lp = (LayoutParams) holder.message.getLayoutParams();
 		if (message.SDT_Gui.equalsIgnoreCase(UserInfoStoreManager.getInstance().getPhoneNumber())
 				|| PhoneNumberUtils.compare(message.SDT_Gui, UserInfoStoreManager.getInstance().getPhoneNumber())) {
-			holder.background.setBackgroundResource(R.drawable.speech_bubble_green);
+			holder.message.setBackgroundResource(R.drawable.speech_bubble_green);
 			lp.gravity = Gravity.RIGHT;
 		} else {
-			holder.background.setBackgroundResource(R.drawable.speech_bubble_orange);
+			holder.message.setBackgroundResource(R.drawable.speech_bubble_orange);
 			lp.gravity = Gravity.LEFT;
 		}
-		holder.background.setLayoutParams(lp);
+		holder.message.setLayoutParams(lp);
+		holder.time.setLayoutParams(lp);
 		holder.message.setTextColor(R.color.textColor);
 		return convertView;
 	}
 
 	private static class ViewHolder {
-		LinearLayout background;
 		TextView time;
 		TextView message;
 	}

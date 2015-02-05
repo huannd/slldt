@@ -16,6 +16,9 @@ public class HeaderBarFactory {
 		mFrag = frag;
 	}
 	
+	public SimpleHeaderBar getHeader() {
+		return mSimpleHeaderBar;
+	}
 	public View onCreateHeaderView(LayoutInflater inflater,
 			ViewGroup container,HeaderType headerType) {
 		switch (headerType) {
