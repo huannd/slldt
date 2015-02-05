@@ -337,6 +337,24 @@ public class SMSGatewayWebservice {
 		}.execute();
 	}
 	
+	public static void getListSmsChatWithPhoneNumber(final String guestPhoneNumber,final WebserviceTaskListener<ArrayList<SMSModel>> webserviceTaskListener){		
+		new AsyncTask<Void, Void, ArrayList<SMSModel>>() {
+			ResultModel refResult = new ResultModel(); 
+			@Override
+			protected ArrayList<SMSModel> doInBackground(Void... params) {
+				ArrayList<SMSModel> ret = new WSGetSMS().getListSMSChatWithPhoneNumber(guestPhoneNumber,refResult);
+				return ret;
+			}
+			
+			protected void onPostExecute(ArrayList<SMSModel> result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(result,refResult);
+				}
+			};
+			
+		}.execute();
+	}
+	
 	public static void registerPushNotification(final String registrationId,final String deviceInfo,final int osType,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
 		new AsyncTask<Void, Void, ResultModel>() {
 			@Override

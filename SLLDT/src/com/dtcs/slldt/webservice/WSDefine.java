@@ -72,6 +72,8 @@ public interface WSDefine {
 	
 	public static final String METHOD_GET_LIST_SMS_CHAT					= "GetListSmsChat";
 	
+	public static final String METHOD_GET_LIST_SMS_CHAT_WITH_PHONENUMBER = "GetListSmsChatWithPhoneNumber";
+	
 	//Param
 	/** The Constant PARAM_METHOD_IDENTIFIER. */
 	public static final String PARAM_METHOD_IDENTIFIER 	= "methodIdentifier";
@@ -116,4 +118,6 @@ public interface WSDefine {
 	public static final String PARAM_DEVICE_INFO		= "deviceInfo";
 	
 	public static final String PARAM_IS_CHAT			= "isChat";
+	
+	public static final String PARAM_GUEST_PHONE_NUMBER = "guestPhoneNumber";
 }
