@@ -41,6 +41,42 @@ public class SMSGatewayWebservice {
 		}.execute();
 	}
 
+	public static void register(final String userId,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
+		new AsyncTask<Void, Void, ResultModel>() {
+
+			@Override
+			protected ResultModel doInBackground(Void... params) {
+				ResultModel result =  new WSLogin().register(userId);
+				return result;
+			}
+			
+			protected void onPostExecute(ResultModel result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(null,result);
+				}
+			};
+			
+		}.execute();
+	}
+	
+	public static void forgotPassword(final String userId,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
+		new AsyncTask<Void, Void, ResultModel>() {
+
+			@Override
+			protected ResultModel doInBackground(Void... params) {
+				ResultModel result =  new WSLogin().forgotPassword(userId);
+				return result;
+			}
+			
+			protected void onPostExecute(ResultModel result) {
+				if (webserviceTaskListener != null) {
+					webserviceTaskListener.onTaskComplete(null,result);
+				}
+			};
+			
+		}.execute();
+	}
+	
 	public static void changePassword(final String newPass,final WebserviceTaskListener<ResultModel> webserviceTaskListener){
 		new AsyncTask<Void, Void, ResultModel>() {
 

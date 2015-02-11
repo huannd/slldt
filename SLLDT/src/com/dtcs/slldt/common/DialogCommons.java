@@ -6,11 +6,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -246,6 +248,69 @@ public class DialogCommons {
 		return dialog;
 	}
 
+	public static Dialog getInputDialog(final Context ctx,String title, final OnDialogClickOkListener eventOK) {
+		final Dialog dialog = new Dialog(ctx);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		dialog.setContentView(R.layout.dialog_input);
+		final TextView tvTitle = (TextView) dialog.findViewById(R.id.dTitle);
+		final EditText edtPhone = (EditText) dialog.findViewById(R.id.edtPhone);
+		if (title !=null) {
+			tvTitle.setText(title);
+		}
+		dialog.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		dialog.findViewById(R.id.btnAccept).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String phone = edtPhone.getText().toString();
+				if (phone == null || phone.trim().equals("")) {
+					Toast.makeText(ctx, "Hãy nhập số điện thoại.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (eventOK != null) {
+					eventOK.onOkClick(phone);
+				}
+				dialog.dismiss();
+			}
+		});
+		return dialog;
+	}
+	
+	/**
+	 * Show confirm dialog.
+	 *
+	 * @param context the context
+	 * @param title the title
+	 * @param message the message
+	 */
+	public static void showConfirmDialog(Context context,String title,String message){
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		View vContent = LayoutInflater.from(context).inflate(R.layout.dialog_confirm, null);
+		TextView tvTitle = (TextView) vContent.findViewById(R.id.dTitle);
+		TextView tvMessage = (TextView) vContent.findViewById(R.id.message);
+		Button btnOk = (Button)vContent.findViewById(R.id.btnOK);
+		
+		tvTitle.setText(title);
+		tvMessage.setText(message);
+		btnOk.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		dialog.setContentView(vContent);
+		dialog.show();
+	}
+	
 	public interface OnDialogClickOkListener {
 		void onOkClick(Object obj);
 	}
