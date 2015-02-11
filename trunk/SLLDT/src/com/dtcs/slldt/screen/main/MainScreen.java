@@ -30,6 +30,7 @@ import com.dtcs.slldt.model.MainDashboardItem;
 import com.dtcs.slldt.model.ResultModel;
 import com.dtcs.slldt.model.StudentModel;
 import com.dtcs.slldt.screen.StudentAdapter;
+import com.dtcs.slldt.screen.about.AboutSceen;
 import com.dtcs.slldt.screen.account.AccountScreen;
 import com.dtcs.slldt.screen.base.EContactFragment;
 import com.dtcs.slldt.screen.inbox.InboxScreen;
@@ -138,6 +139,7 @@ public class MainScreen extends EContactFragment{
 					showAccountDialog();
 					break;
 				case ActionAbout:
+					switchContent(new AboutSceen(), true);
 					break;
 				default:
 					break;
@@ -149,18 +151,18 @@ public class MainScreen extends EContactFragment{
 	@Override
 	public void sync() {
 //		switchData();
-		String regId = SessionStore.getInstance().getRegistrationId();
-		long studentID = UserInfoStoreManager.getInstance().getCurrentStudent().Ma_Hs;
-		int osType = 5;
-		SMSGatewayWebservice.testPush(regId, studentID, osType, new WebserviceTaskListener<ResultModel>() {
-			
-			@Override
-			public void onTaskComplete(ResultModel ob, ResultModel result) {
-				if (result!=null && result.getErrorCode() == 0) {
-					Log.d("Send Push ","Success");
-				}
-			}
-		});
+//		String regId = SessionStore.getInstance().getRegistrationId();
+//		long studentID = UserInfoStoreManager.getInstance().getCurrentStudent().Ma_Hs;
+//		int osType = 5;
+//		SMSGatewayWebservice.testPush(regId, studentID, osType, new WebserviceTaskListener<ResultModel>() {
+//			
+//			@Override
+//			public void onTaskComplete(ResultModel ob, ResultModel result) {
+//				if (result!=null && result.getErrorCode() == 0) {
+//					Log.d("Send Push ","Success");
+//				}
+//			}
+//		});
 		
 //		SMSGatewayWebservice.sendSMS("01272768149", "Test Send SMS", new WebserviceTaskListener<ResultModel>() {
 //			
