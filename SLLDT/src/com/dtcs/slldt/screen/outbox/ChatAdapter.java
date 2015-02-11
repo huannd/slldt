@@ -66,10 +66,12 @@ public class ChatAdapter extends BaseAdapter {
 		LayoutParams lp = (LayoutParams) holder.message.getLayoutParams();
 		if (message.SDT_Gui.equalsIgnoreCase(UserInfoStoreManager.getInstance().getPhoneNumber())
 				|| PhoneNumberUtils.compare(message.SDT_Gui, UserInfoStoreManager.getInstance().getPhoneNumber())) {
-			holder.message.setBackgroundResource(R.drawable.speech_bubble_green);
+//			holder.message.setBackgroundResource(R.drawable.speech_bubble_green);
+			holder.message.setBackgroundColor(mContext.getResources().getColor(R.color.greyColor));
 			lp.gravity = Gravity.RIGHT;
 		} else {
-			holder.message.setBackgroundResource(R.drawable.speech_bubble_orange);
+//			holder.message.setBackgroundResource(R.drawable.speech_bubble_orange);
+			holder.message.setBackgroundColor(mContext.getResources().getColor(R.color.greenColor));
 			lp.gravity = Gravity.LEFT;
 		}
 		holder.message.setLayoutParams(lp);
