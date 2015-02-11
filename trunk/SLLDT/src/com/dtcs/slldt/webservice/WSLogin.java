@@ -144,4 +144,100 @@ public class WSLogin extends BaseSoapService{
 			return null;
 		}
 	}
+	
+	public ResultModel register(String userId){
+		SoapObject soapObject = createSoapObject(WSDefine.METHOD_REGISTER);
+		
+		PropertyInfo userIdInfo = createPropertyInfo(WSDefine.PARAM_USER_ID, 
+																SessionStore.getInstance().getUserId(), 
+																String.class);
+
+		PropertyInfo methodIdentifierInfo = createPropertyInfo(WSDefine.PARAM_METHOD_IDENTIFIER, 
+																WSDefine.METHOD_REGISTER, 
+																String.class);
+		
+		PropertyInfo authenticationInfo = createPropertyInfo(WSDefine.PARAM_AUTHENTICATION_KEY, 
+																WSDefine.AKEY, 
+																String.class);
+		PropertyInfo checksumInfo = createPropertyInfo(WSDefine.PARAM_CHECKSUM, 
+																MD5.encrypt((WSDefine.METHOD_REGISTER+WSDefine.AKEY)),
+																String.class);
+		soapObject.addProperty(userIdInfo);
+		soapObject.addProperty(methodIdentifierInfo);
+		soapObject.addProperty(authenticationInfo);
+		soapObject.addProperty(checksumInfo);
+		
+		SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(soapObject);
+		HttpTransportSE ht = getHttpTransportSE();
+		ResultModel ret = new ResultModel();
+		try {
+			ht.call(getSoapAction(WSDefine.METHOD_REGISTER), envelope);
+			SoapObject respondsObject = (SoapObject)envelope.bodyIn;
+			String responds = respondsObject.getPropertyAsString(0);
+			if (responds!=null) {
+				ret.strResult = responds;
+			}
+			return ret;
+		} catch (HttpResponseException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ResultModel forgotPassword(String userId){
+		SoapObject soapObject = createSoapObject(WSDefine.METHOD_FORGOT_PASSWORD);
+		
+		PropertyInfo userIdInfo = createPropertyInfo(WSDefine.PARAM_USER_ID, 
+																SessionStore.getInstance().getUserId(), 
+																String.class);
+
+		PropertyInfo methodIdentifierInfo = createPropertyInfo(WSDefine.PARAM_METHOD_IDENTIFIER, 
+																WSDefine.METHOD_FORGOT_PASSWORD, 
+																String.class);
+		
+		PropertyInfo authenticationInfo = createPropertyInfo(WSDefine.PARAM_AUTHENTICATION_KEY, 
+																WSDefine.AKEY, 
+																String.class);
+		PropertyInfo checksumInfo = createPropertyInfo(WSDefine.PARAM_CHECKSUM, 
+																MD5.encrypt((WSDefine.METHOD_FORGOT_PASSWORD+WSDefine.AKEY)),
+																String.class);
+		soapObject.addProperty(userIdInfo);
+		soapObject.addProperty(methodIdentifierInfo);
+		soapObject.addProperty(authenticationInfo);
+		soapObject.addProperty(checksumInfo);
+		
+		SoapSerializationEnvelope envelope = getSoapSerializationEnvelope(soapObject);
+		HttpTransportSE ht = getHttpTransportSE();
+		ResultModel ret = new ResultModel();
+		try {
+			ht.call(getSoapAction(WSDefine.METHOD_FORGOT_PASSWORD), envelope);
+			SoapObject respondsObject = (SoapObject)envelope.bodyIn;
+			String responds = respondsObject.getPropertyAsString(0);
+			if (responds!=null) {
+				ret.strResult = responds;
+			}
+			return ret;
+		} catch (HttpResponseException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

@@ -11,8 +11,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dtcs.slldt.common.DeviceInfoStore;
+import com.dtcs.slldt.common.DialogCommons;
+import com.dtcs.slldt.common.DialogCommons.OnDialogClickOkListener;
 import com.dtcs.slldt.common.SessionStore;
 import com.dtcs.slldt.common.UserInfoStoreManager;
 import com.dtcs.slldt.gcmservice.GCMRequester;
@@ -206,11 +209,73 @@ public class LoginScreen extends EContactFragment implements OnClickListener {
 	}
 
 	private void register() {
-
+		DialogCommons.getInputDialog(getActivity(), "Đăng Ký", new OnDialogClickOkListener() {
+			
+			@Override
+			public void onOkClick(Object obj) {
+				String phone = (String)obj;
+				showLoading();
+				SMSGatewayWebservice.register(phone, new WebserviceTaskListener<ResultModel>() {
+					
+					@Override
+					public void onTaskComplete(ResultModel ob, ResultModel result) {
+						hideLoading();
+						if(result != null){
+							int code = result.getErrorCode();
+							switch (code) {
+							case 60:
+								Toast.makeText(getActivity(), "Số điện thoại này đã tồn tại", Toast.LENGTH_SHORT).show();
+								break;
+							case 61:
+								Toast.makeText(getActivity(), "Vui lòng đăng ký số điện thoại tại trường.", Toast.LENGTH_SHORT).show();
+								break;
+							case 62:
+								Toast.makeText(getActivity(), "Số điện thoại này chưa được kích hoạt.", Toast.LENGTH_SHORT).show();
+								break;
+							default:
+								Toast.makeText(getActivity(), "Số điện thoại này chưa được kích hoạt.", Toast.LENGTH_SHORT).show();
+								break;
+							}
+						}
+					}
+				});
+			}
+		}).show();
 	}
 
 	private void forgotPassword() {
-
+		DialogCommons.getInputDialog(getActivity(), "Quên Mật Khẩu", new OnDialogClickOkListener() {
+			
+			@Override
+			public void onOkClick(Object obj) {
+				String phone = (String)obj;
+				showLoading();
+				SMSGatewayWebservice.forgotPassword(phone, new WebserviceTaskListener<ResultModel>() {
+					
+					@Override
+					public void onTaskComplete(ResultModel ob, ResultModel result) {
+						hideLoading();
+						if (result != null) {
+							int code = result.getErrorCode();
+							switch (code) {
+							case 60:
+								DialogCommons.showConfirmDialog(getActivity(), "Thông Báo", "Mật khẩu của bạn là: "+result.getErrorDescription());
+								break;
+							case 61:
+								Toast.makeText(getActivity(), "Tài khoản này không tồn tại.", Toast.LENGTH_SHORT).show();
+								break;
+							case 62:
+								Toast.makeText(getActivity(), "Tài khoản này chưa được kích hoạt.", Toast.LENGTH_SHORT).show();
+								break;
+							default:
+								Toast.makeText(getActivity(), "Tài khoản này không tồn tại.", Toast.LENGTH_SHORT).show();
+								break;
+							}
+						}
+					}
+				});
+			}
+		}).show();
 	}
 
 	@Override

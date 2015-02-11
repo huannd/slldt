@@ -26,6 +26,12 @@ public interface WSDefine {
 	/** The Constant METHOD_CHANGE_PASSWORD. */
 	public static final String METHOD_CHANGE_PASSWORD 					= "ChangePassword";
 	
+	/** The Constant METHOD_CHANGE_PASSWORD. */
+	public static final String METHOD_REGISTER 							= "Register";
+	
+	/** The Constant METHOD_CHANGE_PASSWORD. */
+	public static final String METHOD_FORGOT_PASSWORD 					= "ForgotPassword";
+	
 	/** The Constant METHOD_RESET_PASSWORD. */
 	public static final String METHOD_RESET_PASSWORD 					= "ResetPassword";
 	
