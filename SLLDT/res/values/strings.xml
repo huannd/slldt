@@ -28,6 +28,8 @@
     <string name="err_wrong_phone_or_pass">Số điện thoại hoặc mật khẩu sai.\nVui lòng nhập lại</string>
     <string name="err_network_connection">Kết nối mạng sảy ra lỗi.\nVui lòng thử lại sau</string>
     <string name="err_not_exist_account">Tài khoản không tồn tại.\nVui lòng kiểm tra lại.</string>
+    <string name="intro">   Công ty cổ phần giải pháp truyền thông số Việt Nam (DTCS) xin trân thành cảm ơn Quý nhà trường ,phụ huynh và quý thầy cô đã ủng hộ chúng tôi trong nhưng năm vừa qua.\n\n
+       "Sổ Liên Lạc Điện Tử" là hệ thống thông tin nhằm tăng cường quản lý chất lượng giáo dục tại các trường học ,đồng thời nhằm tăng cường việc trao đổi và cung cấp thông tin giữa nhà trường và gia đình các thông tin về tình hình học tập ,rèn luyện của học sinh hàng ngày,hàng tuần thông qua các thiết bị viễn thông,CNTT,Phụ huynh nhận tin nhắn tự động về kết quả học tập của con em mình thông qua điện thoại di động.</string>
     
     <string name="title_out_sms">Write SMS</string>
     <string name="title_in_sms">SMS</string>
