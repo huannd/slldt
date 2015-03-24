@@ -23,6 +23,7 @@ public class MainActivity extends BaseFragmentActivity {
 		Fragment cur = getCurrentFragment();
 		boolean isStartFromNotification = getIntent().getBooleanExtra(ICommonDefine.KEY_START_FROM_NOTIFICATION, false);
 		int sID = getIntent().getIntExtra(ICommonDefine.KEY_NOTIFICATION_FOR_STUDENT_ID, ICommonDefine.DEFAULT_ID);
+		
 		if (isStartFromNotification || (cur != null && !(cur instanceof InboxScreen))
 				|| (cur != null && !(cur instanceof OutboxScreen))) {
 			if (sID != ICommonDefine.DEFAULT_ID) {
